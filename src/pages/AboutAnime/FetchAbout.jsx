@@ -40,7 +40,6 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
       }
       await setAnimeData(newShit[0]);
       await FetchCharacter(newShit[0].mal_id);
-      console.log(newShit);
     } catch (err) {
       console.log(err);
       setError(true);

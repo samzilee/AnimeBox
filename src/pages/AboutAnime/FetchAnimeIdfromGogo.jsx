@@ -10,8 +10,12 @@ const FetchAnimeIdfromGogo = ({
   const path = useLocation().pathname;
   const fetchFromGogo = async () => {
     if (animeData === null) return;
+    let jsf = null;
+    if (animeData.title === "Naruto: Shippuuden") {
+      jsf = "Naruto Shippuden";
+    }
     const url = `https://animerunway.vercel.app/anime/gogoanime/${
-      animeData.title || animeData.title_english
+      jsf || animeData.title || animeData.title_english
     }`;
     try {
       setFetching(true);

@@ -11,6 +11,7 @@ const WatchAnime = () => {
   const [type, setType] = useState("sub");
   const [showServer, setShowServer] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [changingEp, setChangingEP] = useState(true);
 
   useEffect(() => {
     if (!servers) return;
@@ -51,13 +52,17 @@ const WatchAnime = () => {
 
   return (
     <main className="All h-dvh overflow-y-scroll overflow-x-hidden">
-      <FetchEp setServers={setServers} setFetching={setFetching} />
+      <FetchEp
+        setServers={setServers}
+        setFetching={setFetching}
+        setChangingEP={setChangingEP}
+      />
 
       {fetching ? (
         <Loader />
       ) : (
         <div className="md:flex ">
-          <AnimeVideo watching={watching} />
+          <AnimeVideo watching={watching} changingEp={changingEp} />
           <Body
             servers={servers}
             watching={watching}

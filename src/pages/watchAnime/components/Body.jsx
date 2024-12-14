@@ -15,10 +15,23 @@ const Body = ({
   const path = useLocation().pathname;
   const ep = path.split("-episode-");
   const animeName = ep[0].toString();
-
   const [epInput, setEpInput] = useState("");
   const [episodes, setEPisodes] = useState([]);
   const [closeMenuPc, setColseMenuPc] = useState(false);
+
+  useEffect(() => {
+    if (!servers) return;
+    if (!servers.Totalep) return;
+    setEPisodes(() => {
+      if (epInput === "") return servers.Totalep;
+      return servers.Totalep.filter(
+        (episode) => episode.number === parseInt(epInput)
+      );
+    });
+  }, [epInput, servers]);
+
+  if (!servers) return;
+  if (!watching) return;
 
   const epPlaying = document.getElementById(ep[1]);
   if (epPlaying !== null) {
@@ -34,20 +47,6 @@ const Body = ({
     epPlaying.style.backgroundColor = "rgb(96, 165, 250)";
     epPlaying.style.color = "white";
   }
-
-  useEffect(() => {
-    if (!servers) return;
-    if (!servers.Totalep) return;
-    setEPisodes(() => {
-      if (epInput === "") return servers.Totalep;
-      return servers.Totalep.filter(
-        (episode) => episode.number === parseInt(epInput)
-      );
-    });
-  }, [epInput, servers]);
-
-  if (!servers) return;
-  if (!watching) return;
 
   return (
     <main
@@ -107,6 +106,9 @@ const Body = ({
               : "translate-x-[100%] overflow-hidden opacity-0 h-0"
           }`}
         >
+          <p className="text-center font-mono font-semibold text-blue-300 text-[0.7rem]">
+            {servers.animeName}
+          </p>
           <div className="flex gap-2">
             <p className="font-bold">Sub:</p>
             <ul className="flex flex-wrap gap-3">
