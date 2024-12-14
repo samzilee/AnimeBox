@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid;
+  border-color: transparent rgb(96, 165, 250);
+  animation: l1 1s infinite;
+}
+@keyframes l1 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.All::-webkit-scrollbar {
+  background-color: transparent;
+  width: 5px;
+}
+
+.All::-webkit-scrollbar-thumb {
+  background-color: rgb(16, 89, 153);
+}
+
+.Allside::-webkit-scrollbar {
+  background-color: transparent;
+  height: 5px;
+}
+
+@keyframes loader {
+  from {
+    background-color: gray;
+  }
+  to {
+    background-color: rgba(31, 41, 55, 1);
+  }
+}
+.AnimeList {
+  animation: loader 2s infinite;
+}

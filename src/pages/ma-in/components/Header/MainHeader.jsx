@@ -1,0 +1,61 @@
+import React, { useEffect, useState } from "react";
+import "./H.css";
+import Section1 from "./section1";
+import Section2 from "./Section2";
+import BackGround from "./BackGround";
+import FetchHeader from "./FetchHeader";
+import Nav from "./Nav";
+import Loader from "../../../../Loader";
+import Error from "../../../../Error";
+
+const MainHeader = () => {
+  const [animeList, setAnimeList] = useState([]);
+  const [animeId, setAnimeId] = useState(null);
+  const [animeSlideID, setSlideID] = useState(0);
+  const [NowShowing, setNowShowing] = useState(null);
+  const [fetchingError, setFetchingError] = useState(false);
+
+  useEffect(() => {
+    if (animeList.length < 5) return;
+    const intervalId = setInterval(() => {
+      setSlideID((prevValue) => {
+        if (prevValue >= animeList.length) return 0;
+        return prevValue + 1;
+      });
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [animeList]);
+
+  useEffect(() => {
+    if (animeList.length === 5 && animeSlideID < animeList.length) {
+      setNowShowing(animeList[animeSlideID]);
+    }
+  }, [animeSlideID, animeList]);
+
+  if (fetchingError) return <Error />;
+
+  return (
+    <header className="Hfooter h-[500px] flex flex-col justify-between relative md:h-screen">
+      <FetchHeader
+        animeId={animeId}
+        setAnimeId={setAnimeId}
+        setAnimeList={setAnimeList}
+        setFetchingError={setFetchingError}
+      />
+
+      {!animeList[0] ? (
+        <Loader />
+      ) : (
+        <>
+          <Section1 />
+          <BackGround NowShowing={NowShowing} />
+          <Section2 NowShowing={NowShowing} />
+        </>
+      )}
+
+      {animeList.length >= 5 ? <Nav setSlideID={setSlideID} /> : null}
+    </header>
+  );
+};
+
+export default MainHeader;

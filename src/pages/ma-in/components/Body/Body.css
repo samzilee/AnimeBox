@@ -1,0 +1,15 @@
+.BodyList::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0px;
+}
+@keyframes loader {
+  from {
+    background-color: gray;
+  }
+  to {
+    background-color: rgba(31, 41, 55, 1);
+  }
+}
+.AnimeList {
+  animation: loader 2s infinite;
+}

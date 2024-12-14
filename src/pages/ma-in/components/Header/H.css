@@ -1,0 +1,10 @@
+.Hheader {
+  box-shadow: inset 0px 20px 13px rgba(31, 41, 55, 1);
+}
+.Hfooter {
+  box-shadow: inset 0px -20px 13px rgba(31, 41, 55, 1);
+}
+
+.slide {
+  margin-left: 20px;
+}

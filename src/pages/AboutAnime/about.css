@@ -1,0 +1,29 @@
+.topShadow {
+  position: relative;
+}
+
+.topShadow::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  box-shadow: inset 0px 30px 30px rgba(31, 41, 55, 1);
+}
+
+.ep::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0px;
+}
+
+.bottomShadow::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  box-shadow: inset 0px -5px 5px rgba(31, 41, 55, 1);
+  z-index: 1;
+}
