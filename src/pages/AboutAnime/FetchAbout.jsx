@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
   const path = useLocation().pathname;
+  localStorage.setItem("AboutPath", path);
 
   const FetchEnglishNameFromZoro = async () => {
     const url = `https://animerunway.vercel.app/anime/zoro/info?id=${animeName.slice(
