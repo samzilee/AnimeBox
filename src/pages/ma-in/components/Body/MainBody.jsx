@@ -4,7 +4,7 @@ import "./Body.css";
 import { createContext } from "react";
 export const Requests = createContext(null);
 const MainBody = () => {
-  const [Request, setRequest] = useState([
+  const Request = [
     {
       type: "Top Airing",
       typeUrl: "top-airing",
@@ -25,7 +25,7 @@ const MainBody = () => {
       typeUrl: "movie",
       url: "https://animerunway.vercel.app/anime/zoro/movie",
     },
-  ]);
+  ];
   return (
     <main className="mb-5">
       <section className="flex flex-col gap-5 ">

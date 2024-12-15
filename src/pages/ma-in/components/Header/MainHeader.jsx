@@ -7,6 +7,8 @@ import FetchHeader from "./FetchHeader";
 import Nav from "./Nav";
 import Loader from "../../../../Loader";
 import Error from "../../../../Error";
+import FetchContinuedAnime from "./FetchContinuedAnime";
+import ContinueWatching from "./continueWatching";
 
 const MainHeader = () => {
   const [animeList, setAnimeList] = useState([]);
@@ -14,6 +16,7 @@ const MainHeader = () => {
   const [animeSlideID, setSlideID] = useState(0);
   const [NowShowing, setNowShowing] = useState(null);
   const [fetchingError, setFetchingError] = useState(false);
+  const [continueWatch, setContinueWatch] = useState(null);
 
   useEffect(() => {
     if (animeList.length < 5) return;
@@ -35,14 +38,14 @@ const MainHeader = () => {
   if (fetchingError) return <Error />;
 
   return (
-    <header className="Hfooter h-[500px] flex flex-col justify-between relative md:h-screen">
+    <header className="Hfooter h-[400px] flex flex-col justify-between relative md:h-screen ">
       <FetchHeader
         animeId={animeId}
         setAnimeId={setAnimeId}
         setAnimeList={setAnimeList}
         setFetchingError={setFetchingError}
       />
-
+      <FetchContinuedAnime setContinueWatch={setContinueWatch} />
       {!animeList[0] ? (
         <Loader />
       ) : (
@@ -50,6 +53,7 @@ const MainHeader = () => {
           <Section1 />
           <BackGround NowShowing={NowShowing} />
           <Section2 NowShowing={NowShowing} />
+          <ContinueWatching continueWatch={continueWatch} />
         </>
       )}
 

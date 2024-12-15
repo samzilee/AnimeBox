@@ -50,7 +50,7 @@ const Body = ({
 
   return (
     <main
-      className={`flex-1 transition-all duration-[0.5s]  overflow-hidden ${
+      className={`flex-1 transition-all duration-[0.5s] overflow-hidden ${
         closeMenuPc ? " w-0 flex-none" : ""
       }`}
     >
@@ -77,7 +77,9 @@ const Body = ({
 
         <div className="flex gap-4 px-5 pt-5 pb-1">
           <button
-            className="px-3 rounded-full bg-blue-400 py-[0.5px]"
+            className={`px-3 rounded-full  py-[0.5px] transition-all duration-[0.5s] border-[1.5px] border-blue-400  ${
+              showServer ? "bg-blue-400" : "text-blue-400 "
+            }`}
             onClick={() => {
               setShowServer((current) => {
                 if (current === true) return false;

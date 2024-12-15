@@ -25,6 +25,7 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
     try {
       const respons = await fetch(url);
       const data = await respons.json();
+
       let newShit = await data.data.filter(
         (anime) =>
           anime.title_english === ForJikan.title ||
@@ -39,6 +40,7 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
       if (!newShit[0]) {
         newShit = await data.data;
       }
+
       await setAnimeData(newShit[0]);
       await FetchCharacter(newShit[0].mal_id);
     } catch (err) {

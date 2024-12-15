@@ -22,8 +22,11 @@ const AnimeVideo = ({ watching, changingEp }) => {
           ></iframe>
         )}
       </div>
-      <Link to={back} className=" absolute top-0 w-full p-2 z-10">
+      <Link to={back} className="absolute top-0 z-10 mt-2 ml-1">
         <FiArrowLeft className="text-[1.7rem]" />
+      </Link>
+      <Link to="/" className="absolute top-0 right-0 z-10 ml-1">
+        <img src={logo} alt="web Logo" className="w-[70px]" />
       </Link>
     </main>
   );

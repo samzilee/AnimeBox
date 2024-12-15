@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const FetchEp = ({ setServers, setFetching, setChangingEP }) => {
   const path = useLocation().pathname;
   const slicePath = path.slice(10);
   const splitpath = slicePath.split("-episode-");
+  localStorage.setItem("continueWatching", path);
 
   const FetchEPSub = async () => {
     const url = `https://animerunway.vercel.app/anime/gogoanime/servers/${splitpath[0]}-episode-${splitpath[1]}`;
