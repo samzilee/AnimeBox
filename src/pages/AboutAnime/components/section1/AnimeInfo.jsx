@@ -22,6 +22,7 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
   };
 
   if (!animeData) return;
+
   return (
     <main>
       <div className="p-4">
@@ -31,7 +32,16 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
           </p>
           <BiBookmark className="text-[1.3rem] md:text-[2rem] opacity-[0.5] cursor-not-allowed" />
         </section>
-        <section className="flex flex-col md:flex-row mt-3 gap-5  md:items-center ">
+        <section>
+          <ul className="flex gap-1 text-[0.6rem] font-semibold">
+            [
+            {animeData.genres.map((genre) => {
+              return <li key={genre.name}>{genre.name}.</li>;
+            })}
+            ]
+          </ul>
+        </section>
+        <section className="flex flex-col md:flex-row  gap-5  md:items-center ">
           <div className="flex gap-5">
             <p className="font-semibold">
               Total Ep:{" "}

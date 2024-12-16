@@ -66,6 +66,7 @@ const EpList = ({ animeData, animeId, availableEp }) => {
             <p className="text-red-400">Anime Not Available Right Now</p>
           ) : (
             searchEp.map((ep, index) => {
+              if (ep.number === 0) return;
               return (
                 <li
                   key={index}

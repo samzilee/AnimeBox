@@ -175,6 +175,7 @@ const Body = ({
           <div className=" bg-gray-600 bg-opacity-[0.2] flex p-5">
             <ul className="All flex flex-wrap gap-2 max-h-[250px] overflow-y-scroll  pl-[4%] w-fit">
               {episodes.map((episode) => {
+                if (episode.number === 0) return;
                 return (
                   <Link
                     to={`${animeName}-episode-${episode.number}`}

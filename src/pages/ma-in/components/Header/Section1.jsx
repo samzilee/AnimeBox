@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 const Section1 = () => {
   return (
     <header className="Hheader flex justify-between items-center pr-5">
-      <section>
-        <img src={logo} alt="Web-Logo" className="w-32" />
-      </section>
+      <a href="/">
+        <img src={logo} alt="Web-Logo" className="w-[80px]" />
+      </a>
       <section>
         <Link to="/search">
           <BiSearch className="text-white size-[2.2rem]" />
