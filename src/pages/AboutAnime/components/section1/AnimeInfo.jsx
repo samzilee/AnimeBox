@@ -32,15 +32,7 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
           </p>
           <BiBookmark className="text-[1.3rem] md:text-[2rem] opacity-[0.5] cursor-not-allowed" />
         </section>
-        <section>
-          <ul className="flex gap-1 text-[0.6rem] font-semibold">
-            [
-            {animeData.genres.map((genre) => {
-              return <li key={genre.name}>{genre.name}.</li>;
-            })}
-            ]
-          </ul>
-        </section>
+
         <section className="flex flex-col md:flex-row  gap-5  md:items-center ">
           <div className="flex gap-5">
             <p className="font-semibold">
@@ -85,6 +77,17 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
         </section>
 
         <section className="mt-4">
+          <section>
+            <ul className="flex gap-1 text-[0.6rem] font-semibold">
+              [
+              {!animeData.genres[0]
+                ? "N/A"
+                : animeData.genres.map((genre) => {
+                    return <li key={genre.name}>{genre.name}.</li>;
+                  })}
+              ]
+            </ul>
+          </section>
           <p className="text-[0.8rem] text-gray-200  md:w-[50%]">
             {animeData.synopsis
               ? animeData.synopsis.slice(0, 200)

@@ -11,14 +11,13 @@ const Main = () => {
     <main className="All h-dvh overflow-y-scroll overflow-x-hidden">
       <MainHeader />
       <MainBody />
-      <footer className="footer">
+      <div className="text-center text-gray-500 font-bold">
         <p>
-          Created by <span className="highlight">Samzi</span>
+          Anime Box does not store any files on our server; we only link to the
+          media which is hosted on 3rd party services.
         </p>
-        <p>
-          WhatsApp: <span>+234 09071003477</span>
-        </p>
-      </footer>
+        <p>© Anime Box All rights reserved.</p>
+      </div>
     </main>
   );
 };

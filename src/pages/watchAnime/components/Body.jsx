@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
-import { FiAlertCircle, FiAlertTriangle } from "react-icons/fi";
+import { FiAlertCircle } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../../Assets/large.png";
 
 const Body = ({
   servers,
@@ -55,7 +56,7 @@ const Body = ({
       }`}
     >
       <header>
-        <div className="text-center bg-gray-700 bg-opacity-[0.3] text-[0.9rem] py-1 relative">
+        <div className="text-center bg-gray-700 bg-opacity-[0.3] text-[0.9rem] py-1 relative ">
           <p>
             You are watching{" "}
             <span className="text-blue-300">Episode {ep[1]}</span>

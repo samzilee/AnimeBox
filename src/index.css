@@ -46,26 +46,3 @@
 .AnimeList {
   animation: loader 2s infinite;
 }
-
-.footer {
-  background-color: #1a1a2e;
-  color: #eaeaea;
-  text-align: center;
-  padding: 1rem 0;
-  font-family: "Arial", sans-serif;
-  font-size: 0.9rem;
-  width: 100%;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.footer .highlight {
-  color: #ff4757;
-  font-weight: bold;
-  font-style: italic;
-  text-decoration: underline;
-}
-
-.footer:hover {
-  background-color: #162447;
-  color: #ffffff;
-}

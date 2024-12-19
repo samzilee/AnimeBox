@@ -15,11 +15,11 @@ const MainBodySearch = ({ result, loading }) => {
             result.map((anime) => {
               return (
                 <Link to={`/${anime.id}`} key={anime.id}>
-                  <div className="bottomShadow max-w-[150px] min-w-[150px] h-[210px] relative">
+                  <div className="bottomShadow w-[150px] h-[230px] relative">
                     <img
                       src={anime.image}
                       alt={anime.title}
-                      className="size-full rounded-md AnimeList"
+                      className="size-full rounded-md AnimeList object-cover"
                     />
                     <p className="absolute bottom-0 left-0 right-0 text-[0.7rem] z-[2]">
                       {anime.title}

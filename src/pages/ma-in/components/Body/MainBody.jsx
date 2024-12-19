@@ -21,6 +21,11 @@ const MainBody = () => {
       url: "https://animerunway.vercel.app/anime/zoro/most-popular",
     },
     {
+      type: "Latest Completed",
+      typeUrl: "latest-completed",
+      url: "https://animerunway.vercel.app/anime/zoro/latest-completed",
+    },
+    {
       type: "Movies",
       typeUrl: "movie",
       url: "https://animerunway.vercel.app/anime/zoro/movie",

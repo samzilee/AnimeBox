@@ -26,7 +26,7 @@ const List = ({ Animes }) => {
                 <img
                   src={anime.image}
                   alt={anime.title}
-                  className="size-full filter brightness-[0.9] rounded-lg"
+                  className="size-full filter brightness-[0.9] rounded-lg object-cover"
                 />
                 <div className=" absolute top-0 left-0 right-0 flex justify-between px-2 pt-2 font-semibold text-[0.7rem]">
                   <p className="bg-white text-black px-2 rounded-md ">
