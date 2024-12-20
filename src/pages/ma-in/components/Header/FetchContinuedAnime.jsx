@@ -6,7 +6,7 @@ const FetchContinuedAnime = ({ setContinueWatch }) => {
   const AnimeFragment = continueWatching.slice(10).split("-episode-");
 
   const fetchAnime = async () => {
-    const url = `https://animerunway.vercel.app/anime/zoro/${AnimeFragment[0]}`;
+    const url = `https://animerunway.vercel.app/anime/gogoanime/${AnimeFragment[0]}`;
 
     try {
       const respones = await fetch(url);

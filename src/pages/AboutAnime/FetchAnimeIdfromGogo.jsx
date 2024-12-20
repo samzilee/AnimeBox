@@ -43,7 +43,7 @@ const FetchAnimeIdfromGogo = ({
     try {
       const respons = await fetch(url);
       const data = await respons.json();
-      setAnimeId(data.episodes[0].id);
+      setAnimeId(data.episodes.filter((ep) => ep.number === 1)[0].id);
       setAvailableEp(data.episodes);
       setFetching(false);
     } catch (error) {

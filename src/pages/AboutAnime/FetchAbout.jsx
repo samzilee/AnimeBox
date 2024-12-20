@@ -47,7 +47,10 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
       if (ForJikan.title === "Ranma 1/2") {
         newShit = newShit.filter((anime) => anime.year === 2024);
       }
-
+      localStorage.setItem(
+        "AnimeNameForWatch",
+        newShit[0].title_english || newShit[0].title
+      );
       await setAnimeData(newShit[0]);
       await FetchCharacter(newShit[0].mal_id);
     } catch (err) {

@@ -3,7 +3,6 @@ import { BiSearch } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
 import { FiAlertCircle } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../../../Assets/large.png";
 
 const Body = ({
   servers,

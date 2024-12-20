@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../../../Assets/large.png";
 import { Link } from "react-router-dom";
 import Loader from "../../../Loader";
 import { FiArrowLeft } from "react-icons/fi";
