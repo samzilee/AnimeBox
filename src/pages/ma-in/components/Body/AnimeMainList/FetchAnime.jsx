@@ -10,7 +10,6 @@ const FetchAnime = ({ setAnimes }) => {
         return Array.from(data.results);
       });
     } catch (err) {
-      /* Fetching(); */
       console.log("Error");
     }
   };

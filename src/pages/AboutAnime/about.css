@@ -12,10 +12,7 @@
   box-shadow: inset 0px 30px 30px rgba(31, 41, 55, 1);
 }
 
-.ep::-webkit-scrollbar {
-  background-color: transparent;
-  width: 0px;
-}
+
 
 .bottomShadow::after {
   content: "";

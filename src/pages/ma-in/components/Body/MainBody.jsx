@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AnimeMain from "./AnimeMainList/AnimeMain";
 import "./Body.css";
 import { createContext } from "react";
+import Upcoming from "./UpcomingAnime/Upcoming";
 export const Requests = createContext(null);
 const MainBody = () => {
   const Request = [
@@ -31,6 +32,7 @@ const MainBody = () => {
       url: "https://animerunway.vercel.app/anime/zoro/movie",
     },
   ];
+
   return (
     <main className="mb-5">
       <section className="flex flex-col gap-5 ">
@@ -41,6 +43,9 @@ const MainBody = () => {
             </Requests.Provider>
           );
         })}
+      </section>
+      <section>
+        <Upcoming />
       </section>
     </main>
   );

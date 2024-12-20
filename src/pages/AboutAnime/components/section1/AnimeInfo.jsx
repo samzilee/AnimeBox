@@ -22,6 +22,7 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
   };
 
   if (!animeData) return;
+  console.log(animeData);
 
   return (
     <main>
@@ -34,19 +35,21 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
         </section>
 
         <section className="flex flex-col md:flex-row  gap-5  md:items-center ">
-          <div className="flex gap-5">
+          <div className="flex gap-5 items-center">
             <p className="font-semibold">
               Total Ep:{" "}
-              <span className="text-[0.9rem] text-gray-300">
+              <span className="text-gray-300">
                 {animeData.episodes || "N/A"}
               </span>
             </p>
+
             <div className="flex items-center gap-2 text-[0.8rem]">
               <p className="flex items-center gap-2 text-blue-400">
                 <BsStarFill />
                 <span>{animeData.score || "N/A"}</span>
                 <HiArrowSmallRight />
               </p>
+
               <p>{animeData.year || "N/A"}</p>
             </div>
             <div className="flex gap-2 text-blue-400">

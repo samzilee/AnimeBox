@@ -18,7 +18,7 @@ const EpList = ({ animeData, animeId, availableEp }) => {
 
   useEffect(() => {
     if (!sliceEp) return;
-    const slice = sliceEp.slice(0, 99);
+    const slice = sliceEp.slice(0, 50);
     setEPisodes(slice);
   }, [sliceEp]);
 
@@ -38,9 +38,9 @@ const EpList = ({ animeData, animeId, availableEp }) => {
     <main className="">
       <section className="flex justify-between items-center px-5">
         <p className="font-bold">Episodes</p>
-        {availableEp.length > 99 ? (
+        {availableEp.length > 50 ? (
           <marquee className="mx-2 text-red-400">
-            Only 99 Episodes Are Shown Here
+            Only {episodes.length} Episodes Are Shown Here
           </marquee>
         ) : (
           ""
@@ -60,7 +60,7 @@ const EpList = ({ animeData, animeId, availableEp }) => {
           />
         </div>
       </section>
-      <section className="ep w-full overflow-x-scroll mt-5 px-5 ">
+      <section className="Allside w-full overflow-x-scroll mt-5 px-5 ">
         <ul className="flex items-center gap-3">
           {!availableEp[0] ? (
             <p className="text-red-400">Anime Not Available Right Now</p>

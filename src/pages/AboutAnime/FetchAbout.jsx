@@ -20,7 +20,9 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
   };
 
   const FetchAbout = async (ForJikan) => {
-    const url = `https://api.jikan.moe/v4/anime?q=${ForJikan.title}`;
+    const url = `https://api.jikan.moe/v4/anime?q=${
+      ForJikan.message ? animeName.slice(1) : ForJikan.title
+    }`;
 
     try {
       const respons = await fetch(url);

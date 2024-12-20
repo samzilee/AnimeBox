@@ -35,6 +35,15 @@
   height: 5px;
 }
 
+@media (min-width: 768px) {
+  .Allside::-webkit-scrollbar {
+    height: 10px;
+  }
+  .Allside::-webkit-scrollbar-thumb {
+    background-color: rgb(16, 89, 153);
+  }
+}
+
 @keyframes loader {
   from {
     background-color: gray;

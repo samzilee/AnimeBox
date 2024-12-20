@@ -17,7 +17,7 @@ const MapList = ({ animeList }) => {
                   <img
                     src={anime.image}
                     alt={anime.title}
-                    className="size-full rounded-lg AnimeList"
+                    className="size-full rounded-lg AnimeList object-cover "
                   />
 
                   <Link

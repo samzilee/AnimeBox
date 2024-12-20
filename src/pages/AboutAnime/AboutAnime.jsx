@@ -48,7 +48,7 @@ const AboutAnime = () => {
             animeId={animeId}
             availableEp={availableEp}
           />
-          <Raco characters={characters} />
+          <Raco characters={characters} trailer={animeData.trailer} />
         </>
       ) : (
         <Loader />
