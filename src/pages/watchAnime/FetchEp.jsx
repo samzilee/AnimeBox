@@ -47,6 +47,13 @@ const FetchEp = ({ setServers, setFetching, setChangingEP, setError }) => {
     try {
       const respones = await fetch(url);
       const data = await respones.json();
+
+      if (animeName === "Ranma ½") {
+        return fetchAnimeRealId(
+          data.data.filter((anime) => anime.year === 2024)[0]
+        );
+      }
+
       await fetchAnimeRealId(data.data[0]);
     } catch (error) {
       console.log(error);
