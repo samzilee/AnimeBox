@@ -4,9 +4,14 @@ import { Link } from "react-router-dom";
 import Loader from "../../../Loader";
 import { FiArrowLeft } from "react-icons/fi";
 
-const AnimeVideo = ({ watching, changingEp }) => {
+const AnimeVideo = ({ watching, changingEp, fetching }) => {
+  if (fetching)
+    return (
+      <main className="w-full h-[290px] md:h-screen bg-gray-900 relative">
+        <Loader />
+      </main>
+    );
   if (!watching) return;
-
   const back = localStorage.getItem("AboutPath");
 
   return (
@@ -25,9 +30,6 @@ const AnimeVideo = ({ watching, changingEp }) => {
       <Link to={back} className="absolute top-0 z-10 mt-2 ml-1">
         <FiArrowLeft className="text-[1.7rem]" />
       </Link>
-      {/* <Link to="/" className="absolute top-0 right-0 z-10 ml-1">
-        <img src={logo} alt="web Logo" className="w-[70px]" />
-      </Link> */}
     </main>
   );
 };

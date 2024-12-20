@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const FetchEp = ({ setServers, setFetching, setChangingEP }) => {
+const FetchEp = ({ setServers, setFetching, setChangingEP, setError }) => {
   const path = useLocation().pathname;
   const slicePath = path.slice(10);
   const splitpath = slicePath.split("-episode-");
@@ -41,13 +41,20 @@ const FetchEp = ({ setServers, setFetching, setChangingEP }) => {
   };
 
   const fetchAnimeRealId = async () => {
-    const url = `https://animerunway.vercel.app/anime/gogoanime/${splitpath[0]}`;
+    let annoying = null;
+    if (splitpath[0] === "idinvaded") {
+      annoying = "id-invaded";
+    }
+    const url = `https://animerunway.vercel.app/anime/gogoanime/${
+      annoying || splitpath[0]
+    }`;
     try {
       const respons = await fetch(url);
       const data = await respons.json();
       FetchAnimeInfo(data.results[0].id);
     } catch (error) {
       console.log(error);
+      setError(true);
     }
   };
 

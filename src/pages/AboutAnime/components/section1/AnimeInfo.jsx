@@ -22,7 +22,6 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
   };
 
   if (!animeData) return;
-  console.log(animeData);
 
   return (
     <main>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FetchEp from "./FetchEp";
 import AnimeVideo from "./components/AnimeVideo";
 import Body from "./components/Body";
-import Loader from "../../Loader";
+import Error from "../../Error";
 
 const WatchAnime = () => {
   const [servers, setServers] = useState(null);
@@ -12,6 +12,7 @@ const WatchAnime = () => {
   const [showServer, setShowServer] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [changingEp, setChangingEP] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!servers) return;
@@ -56,13 +57,17 @@ const WatchAnime = () => {
         setServers={setServers}
         setFetching={setFetching}
         setChangingEP={setChangingEP}
+        setError={setError}
       />
-
-      {fetching ? (
-        <Loader />
+      {error && !fetching ? (
+        <Error />
       ) : (
         <div className="md:flex ">
-          <AnimeVideo watching={watching} changingEp={changingEp} />
+          <AnimeVideo
+            watching={watching}
+            changingEp={changingEp}
+            fetching={fetching}
+          />
           <Body
             servers={servers}
             watching={watching}
