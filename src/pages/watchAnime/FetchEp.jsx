@@ -41,20 +41,32 @@ const FetchEp = ({ setServers, setFetching, setChangingEP, setError }) => {
   };
 
   const fetchFromJikan = async () => {
-    const animeName = localStorage.getItem("AnimeNameForWatch");
-    if (!animeName) return;
+    let animeName = splitpath[0];
+    if (animeName === "blue-lock-vs-u-20-japan") {
+      anotherMtf = "Blue Lock season 2";
+    }
     const url = `https://api.jikan.moe/v4/anime?q=${animeName}`;
     try {
       const respones = await fetch(url);
       const data = await respones.json();
+      let newData = data.data;
 
-      if (animeName === "Ranma ½") {
+      if (animeName === "ranma-2024") {
         return fetchAnimeRealId(
           data.data.filter((anime) => anime.year === 2024)[0]
         );
       }
+      newData = newData.filter(
+        (anime) =>
+          anime.title.toLocaleLowerCase() ===
+          animeName.split("-").join(" ").toLocaleLowerCase()
+      );
 
-      await fetchAnimeRealId(data.data[0]);
+      if (newData.length >= 2 || !newData[0]) {
+        newData = data.data;
+      }
+
+      await fetchAnimeRealId(newData[0]);
     } catch (error) {
       console.log(error);
     }

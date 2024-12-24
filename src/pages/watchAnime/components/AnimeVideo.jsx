@@ -26,7 +26,7 @@ const AnimeVideo = ({ watching, changingEp, fetching }) => {
           ></iframe>
         )}
       </div>
-      <Link to={back} className="absolute top-0 z-10 mt-2 ml-1">
+      <Link to={back || "/"} className="absolute top-0 z-10 mt-2 ml-1">
         <FiArrowLeft className="text-[1.7rem]" />
       </Link>
     </main>
