@@ -14,7 +14,7 @@ const Main = () => {
     <main className="All h-dvh overflow-y-scroll overflow-x-hidden">
       <MainHeader />
       <MainBody />
-      <div className="text-center text-gray-500 font-bold">
+      <div className="text-center text-gray-500 font-bold text-[0.8rem] px-2">
         <p>
           Anime Box does not store any files on our server; we only link to the
           media which is hosted on 3rd party services.

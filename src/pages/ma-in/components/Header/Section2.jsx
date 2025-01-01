@@ -69,7 +69,7 @@ const Section2 = ({ NowShowing }) => {
       }`}
     >
       <main className="text-white px-5 py-3">
-        <header className="text-[1.5rem] font-bold mb-1">
+        <header className="text-[1rem] font-bold mb-1">
           {NowShowing.title}
         </header>
         <ul className="text-[0.7rem] mb-1 flex font-semibold gap-1 text-gray-200">

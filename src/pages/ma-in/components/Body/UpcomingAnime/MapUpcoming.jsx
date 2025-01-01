@@ -5,7 +5,7 @@ const MapUpcoming = ({ upcomingAnime }) => {
   if (!upcomingAnime[0]) return;
   return (
     <main className="flex flex-col mt-5 gap-1">
-      <header className=" text-[1.5rem] font-bold font-mono text-blue-400 pt-2 px-5 md:px-5 sticky top-0  z-50 bg-gray-800 ">
+      <header className=" text-[1.5rem] font-bold font-mono text-blue-400 py-2 px-5 md:px-5 sticky top-0  z-50 bg-gray-800 ">
         <p className="">Upcoming Anime</p>
         <hr className="upcomingUnderLine border-0 rounded h-1 w-full" />
       </header>
