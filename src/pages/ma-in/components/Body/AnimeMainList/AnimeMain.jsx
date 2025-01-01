@@ -4,6 +4,7 @@ import List from "./List";
 
 const AnimeMain = () => {
   const [Animes, setAnimes] = useState(null);
+
   return (
     <div>
       <FetchAnime setAnimes={setAnimes} />

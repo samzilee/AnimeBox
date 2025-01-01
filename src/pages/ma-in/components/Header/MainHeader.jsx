@@ -8,18 +8,17 @@ import Nav from "./Nav";
 import Loader from "../../../../Loader";
 import Error from "../../../../Error";
 import FetchContinuedAnime from "./FetchContinuedAnime";
-import ContinueWatching from "./continueWatching";
+import ContinueWatching from "./ContinueWatching";
 
 const MainHeader = () => {
   const [animeList, setAnimeList] = useState([]);
-  const [animeId, setAnimeId] = useState(null);
   const [animeSlideID, setSlideID] = useState(0);
   const [NowShowing, setNowShowing] = useState(null);
   const [fetchingError, setFetchingError] = useState(false);
   const [continueWatch, setContinueWatch] = useState(null);
 
   useEffect(() => {
-    if (animeList.length < 5) return;
+    if (animeList.length < 7) return;
     const intervalId = setInterval(() => {
       setSlideID((prevValue) => {
         if (prevValue >= animeList.length) return 0;
@@ -30,7 +29,7 @@ const MainHeader = () => {
   }, [animeList]);
 
   useEffect(() => {
-    if (animeList.length === 5 && animeSlideID < animeList.length) {
+    if (animeList.length === 7 && animeSlideID < animeList.length) {
       setNowShowing(animeList[animeSlideID]);
     }
   }, [animeSlideID, animeList]);
@@ -40,8 +39,6 @@ const MainHeader = () => {
   return (
     <header className="Hfooter h-[400px] flex flex-col justify-between relative md:h-screen ">
       <FetchHeader
-        animeId={animeId}
-        setAnimeId={setAnimeId}
         setAnimeList={setAnimeList}
         setFetchingError={setFetchingError}
       />

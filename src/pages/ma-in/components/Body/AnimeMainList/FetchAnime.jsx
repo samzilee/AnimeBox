@@ -13,6 +13,19 @@ const FetchAnime = ({ setAnimes }) => {
     return myListLocalValue;
   });
 
+  useEffect(() => {
+    if (Request.type === "My List") {
+      const upDateMyList = setInterval(() => {
+        setMyList(() => {
+          const myListLocalValue =
+            JSON.parse(localStorage.getItem("myList")) || [];
+          return myListLocalValue;
+        });
+      }, 2000);
+      return () => clearInterval(upDateMyList);
+    }
+  }, []);
+
   const saveAnimeToList = () => {
     if (!temporarySavedAnime) return;
     localStorage.setItem(
@@ -30,6 +43,12 @@ const FetchAnime = ({ setAnimes }) => {
   };
 
   const Fetching = async () => {
+    if (Request.type === "My List") {
+      return setfetchCount((current) => {
+        if (current >= 6) return current;
+        return current + 1;
+      });
+    }
     try {
       const respons = await fetch(Request.url);
       const data = await respons.json();
@@ -37,20 +56,20 @@ const FetchAnime = ({ setAnimes }) => {
         return Array.from(data.results);
       });
       setfetchCount((current) => {
-        if (current >= 5) return current;
+        if (current >= 6) return current;
         return current + 1;
       });
     } catch (error) {
       console.log(error);
       setfetchCount((current) => {
-        if (current >= 5) return current;
+        if (current >= 6) return current;
         return current + 1;
       });
     }
   };
 
   useEffect(() => {
-    if (fetchCount >= 5) {
+    if (fetchCount >= 6 && Request.type === "My List") {
       saveAnimeToList();
       if (!myList[0]) return;
       setAnimes(() => {
@@ -58,7 +77,8 @@ const FetchAnime = ({ setAnimes }) => {
       });
     }
     Fetching();
-  }, [myList, fetchCount]);
+  }, [fetchCount, myList]);
+
   return <></>;
 };
 

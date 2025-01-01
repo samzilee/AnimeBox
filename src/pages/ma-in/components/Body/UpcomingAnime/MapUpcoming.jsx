@@ -10,7 +10,6 @@ const MapUpcoming = ({ upcomingAnime }) => {
         <hr className="upcomingUnderLine border-0 rounded h-1 w-full" />
       </header>
 
-      {/* min-w-[170px] max-w-[150px] */}
       <ul className="flex justify-center flex-wrap gap-5 px-2 py-5">
         {upcomingAnime.map((anime, index) => {
           return (

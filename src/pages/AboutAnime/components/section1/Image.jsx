@@ -17,7 +17,7 @@ const Image = ({ animeData }) => {
           <FiArrowLeft className="text-[1.7rem]" />
         </Link>
       </div>
-      <p className="absolute bottom-0 w-fit p-2 z-10 right-0 font-semibold text-[0.7rem] bg-blue-400 bg-opacity-[0.7] rounded-md ">
+      <p className="absolute top-[7px] w-fit p-2 z-10 right-0 font-semibold text-[0.7rem] bg-blue-400 bg-opacity-[0.6] rounded-l-md ">
         Status: <span>{animeData.status || "N/A"}</span>
       </p>
     </div>

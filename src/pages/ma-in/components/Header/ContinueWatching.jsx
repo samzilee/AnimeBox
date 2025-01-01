@@ -3,22 +3,29 @@ import { FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const ContinueWatching = ({ continueWatch }) => {
-  let localValuePath = localStorage.getItem("continueWatching");
-  if (!localValuePath) return;
-  if (!continueWatch) return;
-
-  const FixlocalValue = localValuePath.slice(10).split("-episode-");
   const [showCon, setShowCon] = useState(false);
 
+  const localValuePath = localStorage.getItem("continueWatching");
+  if (!localValuePath) return null;
+
+  const FixlocalValue = localValuePath.slice(10).split("-episode-");
+
   useEffect(() => {
-    setTimeout(() => {
+    const showCon = setTimeout(() => {
       setShowCon(true);
     }, 2000);
 
-    setTimeout(() => {
+    const hideCon = setTimeout(() => {
       setShowCon(false);
     }, 10000);
+
+    return () => {
+      clearTimeout(showCon);
+      clearTimeout(hideCon);
+    };
   }, []);
+
+  if (!continueWatch) return;
 
   return (
     <div

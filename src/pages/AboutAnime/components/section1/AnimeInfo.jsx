@@ -14,6 +14,7 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
   const temporarySavedAnime = JSON.parse(
     localStorage.getItem("temporarySavedAnime")
   );
+
   const myList = JSON.parse(localStorage.getItem("myList"));
 
   useEffect(() => {

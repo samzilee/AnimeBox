@@ -14,7 +14,11 @@ const FetchUpcomingAnime = ({ setUpcomingAnime }) => {
   };
 
   useEffect(() => {
-    fetchUpcoming();
+    const fetch = setTimeout(() => {
+      fetchUpcoming();
+    }, 5000);
+
+    return () => clearTimeout(fetch);
   }, []);
 
   return <></>;
