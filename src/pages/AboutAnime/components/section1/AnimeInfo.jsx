@@ -1,10 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiBookmark } from "react-icons/bi";
-import { BsPlayCircleFill, BsStarFill } from "react-icons/bs";
+import {
+  BsFillBookmarkFill,
+  BsPlayCircleFill,
+  BsStarFill,
+} from "react-icons/bs";
 import { HiArrowSmallRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 const AnimeInfo = ({ animeData, animeId, availableEp }) => {
   const [Wordlength, setWordlength] = useState("short");
+  const [animeSaved, setAnimeSaved] = useState(false);
+
+  const temporarySavedAnime = JSON.parse(
+    localStorage.getItem("temporarySavedAnime")
+  );
+  const myList = JSON.parse(localStorage.getItem("myList"));
+
+  useEffect(() => {
+    if (!myList) return;
+    myList.map((anime) => {
+      const saveBtn = document.getElementById(anime.mal_id);
+      if (saveBtn) {
+        setAnimeSaved(true);
+      }
+    }, []);
+
+    if (!temporarySavedAnime) return;
+    const saveBtn = document.getElementById(temporarySavedAnime.mal_id);
+
+    if (saveBtn) {
+      setAnimeSaved(true);
+    }
+  }, []);
+
+  const saveAnime = () => {
+    setAnimeSaved((current) => {
+      if (current) return false;
+      return true;
+    });
+
+    if (!animeSaved) {
+      //temporary saving anime for main bookmark
+      localStorage.setItem("temporarySavedAnime", JSON.stringify(animeData));
+    } else {
+      localStorage.removeItem("temporarySavedAnime");
+      if (!myList) return;
+      const newMylist = myList.filter(
+        (anime) => anime.mal_id !== animeData.mal_id
+      );
+      localStorage.setItem("myList", JSON.stringify(newMylist));
+    }
+  };
 
   const handleDis = () => {
     if (Wordlength === "short") {
@@ -25,17 +71,33 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
 
   return (
     <main>
-      <div className="p-4">
+      <div className="px-4 py-2">
         <section className="flex justify-between items-center ">
-          <p className="text-[1.2rem] font-semibold">
-            {animeData.title_english || animeData.title}
-          </p>
-          <BiBookmark className="text-[1.3rem] md:text-[2rem] opacity-[0.5] cursor-not-allowed" />
+          <div className="flex-[1]">
+            <p className="text-[1.1rem] font-semibold text-gray-200">
+              {animeData.title_english || animeData.title}
+            </p>
+          </div>
+          <div>
+            {animeSaved ? (
+              <BsFillBookmarkFill
+                id={animeData.mal_id}
+                className="text-[1.5rem] md:text-[2rem] cursor-pointer  hover:opacity-[1] text-blue-400"
+                onClick={saveAnime}
+              />
+            ) : (
+              <BiBookmark
+                id={animeData.mal_id}
+                className="text-[1.5rem] md:text-[2rem] cursor-pointer opacity-[0.5] hover:opacity-[1]"
+                onClick={saveAnime}
+              />
+            )}
+          </div>
         </section>
 
         <section className="flex flex-col md:flex-row  gap-5  md:items-center ">
           <div className="flex gap-5 items-center">
-            <p className="font-semibold">
+            <p className="font-semibold text-[0.9rem]">
               Total Ep:{" "}
               <span className="text-gray-300">
                 {animeData.episodes || "N/A"}

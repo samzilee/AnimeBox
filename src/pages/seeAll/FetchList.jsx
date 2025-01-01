@@ -17,6 +17,13 @@ const FetchList = ({ type, setAnimeList, setError, page, setHasNextPage }) => {
   };
 
   useEffect(() => {
+    if (type === "my-List") {
+      const myList = JSON.parse(localStorage.getItem("myList"));
+      return setAnimeList(() => {
+        if (!myList[0]) return ["N/V"];
+        return myList;
+      });
+    }
     fetchAllList();
   }, [page]);
 

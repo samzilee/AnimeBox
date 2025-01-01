@@ -4,18 +4,20 @@ import { Link } from "react-router-dom";
 const MapUpcoming = ({ upcomingAnime }) => {
   if (!upcomingAnime[0]) return;
   return (
-    <main className="flex flex-col mt-5 gap-2">
-      <header className="flex justify-center text-[1.5rem] font-bold font-mono text-blue-400 bg-gray-900 sticky top-0 bg-opacity-[0.8] z-50">
-        <p>Upcoming Anime</p>
+    <main className="flex flex-col mt-5 gap-1">
+      <header className=" text-[1.5rem] font-bold font-mono text-blue-400 pt-2 px-5 md:px-5 sticky top-0  z-50 bg-gray-800 ">
+        <p className="">Upcoming Anime</p>
+        <hr className="upcomingUnderLine border-0 rounded h-1 w-full" />
       </header>
 
+      {/* min-w-[170px] max-w-[150px] */}
       <ul className="flex justify-center flex-wrap gap-5 px-2 py-5">
         {upcomingAnime.map((anime, index) => {
           return (
             <Link
               to={`/${anime.title}`}
               key={index}
-              className="AnimeList min-w-[150px] max-w-[150px] h-[200px] rounded-lg relative overflow-hidden"
+              className="AnimeList w-[45%] md:w-[170px]  h-[240px] rounded-lg relative overflow-hidden  "
             >
               <img
                 src={anime.images.jpg.image_url}

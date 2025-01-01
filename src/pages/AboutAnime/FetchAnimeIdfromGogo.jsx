@@ -12,26 +12,36 @@ const FetchAnimeIdfromGogo = ({
   const fetchFromGogo = async () => {
     if (animeData === null) return;
     let jsf = null;
+
     if (animeData.title === "Naruto: Shippuuden") {
       jsf = "Naruto Shippuden";
     }
 
-    let jsm = null;
     if (
       animeData.title ===
       "Tensei shitara Slime Datta Ken 3rd Season: Kanwa - Diablo Nikki"
     ) {
-      jsm = animeData.title.split(":")[0];
+      jsf = animeData.title.split(":")[0];
     }
 
     const url = `https://animerunway.vercel.app/anime/gogoanime/${
-      jsf || jsm || animeData.title || animeData.title_english
+      jsf || animeData.title || animeData.title_english
     }`;
     try {
       setFetching(true);
       const respons = await fetch(url);
       const data = await respons.json();
-      fetchEplistFromGogo(data.results[0].id);
+
+      let newData = null;
+      newData = data.results.filter(
+        (anime) => anime.releaseDate == animeData.year
+      );
+
+      if (newData.length < 1) {
+        newData = data.results;
+      }
+
+      fetchEplistFromGogo(newData[0].id);
     } catch (error) {
       console.log(error);
       setFetching(false);

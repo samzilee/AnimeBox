@@ -13,3 +13,14 @@
 .AnimeList {
   animation: loader 2s infinite;
 }
+
+.upcomingUnderLine {
+  background: linear-gradient(
+    90deg,
+    #048bca,
+    #4475a0,
+    #505a70,
+    #3e4c5264,
+    #000
+  );
+}

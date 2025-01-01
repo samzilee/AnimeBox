@@ -7,6 +7,11 @@ export const Requests = createContext(null);
 const MainBody = () => {
   const Request = [
     {
+      type: "My List",
+      typeUrl: "my-List",
+      url: "My List",
+    },
+    {
       type: "Top Airing",
       typeUrl: "top-airing",
       url: "https://animerunway.vercel.app/anime/zoro/top-airing",

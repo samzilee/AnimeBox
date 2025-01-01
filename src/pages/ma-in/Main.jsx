@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MainHeader from "./components/Header/MainHeader.jsx";
 import MainBody from "./components/Body/MainBody.jsx";
 import { useLocation } from "react-router-dom";
+import { createContext } from "react";
 
 const Main = () => {
   const path = useLocation().pathname;

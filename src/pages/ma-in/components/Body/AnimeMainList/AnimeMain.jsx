@@ -4,9 +4,8 @@ import List from "./List";
 
 const AnimeMain = () => {
   const [Animes, setAnimes] = useState(null);
-
   return (
-    <div className="">
+    <div>
       <FetchAnime setAnimes={setAnimes} />
       <List Animes={Animes} />
     </div>

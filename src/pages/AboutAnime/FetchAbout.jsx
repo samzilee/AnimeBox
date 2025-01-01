@@ -31,7 +31,9 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
       let newShit = await data.data.filter(
         (anime) =>
           anime.title_english === ForJikan.title ||
-          anime.title === ForJikan.title
+          anime.title === ForJikan.title ||
+          anime.title_english === animeName.slice(1).split("%20").join(" ") ||
+          anime.title === animeName.slice(1).split("%20").join(" ")
       );
 
       if (newShit.length >= 2) {
