@@ -43,12 +43,15 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
       }
 
       if (!newShit[0]) {
+        newShit = await data.data.filter(
+          (anime) => ForJikan.totalEpisodes == anime.episodes
+        );
+      }
+
+      if (!newShit[0]) {
         newShit = await data.data;
       }
 
-      if (ForJikan.title === "Ranma 1/2") {
-        newShit = newShit.filter((anime) => anime.year === 2024);
-      }
       await setAnimeData(newShit[0]);
       await FetchCharacter(newShit[0].mal_id);
     } catch (err) {

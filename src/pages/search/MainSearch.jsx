@@ -12,8 +12,6 @@ const MainSearch = () => {
   const [loading, setLoading] = useState(false);
   localStorage.setItem("prevPath", path);
 
-  result;
-
   return (
     <main className="All h-dvh pb-5 overflow-y-scroll">
       <SearchHeader searchText={searchText} setSearchText={setSearchText} />

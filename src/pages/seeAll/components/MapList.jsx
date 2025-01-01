@@ -78,7 +78,7 @@ const MapList = ({ animeList, setAnimeList }) => {
                       <p className="text-[0.7rem]  ">
                         type: <span>{anime.type}</span>
                       </p>
-                      {anime.dub || anime.sub ? (
+                      {!anime.mal_id ? (
                         <div className="flex gap-1 text-[0.6rem]">
                           <p>
                             Sub:{" "}

@@ -13,7 +13,11 @@ const FetchSearch = ({ searchText, setResult, setLoading }) => {
       data = data.results;
       setResult(data);
       setLoading(false);
+      if (!data[0]) {
+        return setLoading({ message: "Anime Not Found 😢" });
+      }
     } catch (err) {
+      setLoading({ message: "Error: please Check Your Connection." });
       console.log(err);
     }
   };

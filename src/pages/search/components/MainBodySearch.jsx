@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 import Loader from "../../../Loader";
 
 const MainBodySearch = ({ result, loading }) => {
+  if (loading.message)
+    return (
+      <div className="text-center font-semibold text-gray-500 mt-5">
+        <p>{loading.message}</p>
+      </div>
+    );
   return (
     <main className="mt-5 pb-10 relative h-fit">
       {!result[0] ? (
