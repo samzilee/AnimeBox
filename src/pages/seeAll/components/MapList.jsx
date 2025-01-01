@@ -27,7 +27,7 @@ const MapList = ({ animeList, setAnimeList }) => {
   if (animeList[0] === "N/V")
     return (
       <div className="pt-2 text-gray-400 text-center">
-        <p>Saved Anime Will Displayed Here</p>
+        <p>Saved Anime Will Be Displayed Here</p>
       </div>
     );
 
