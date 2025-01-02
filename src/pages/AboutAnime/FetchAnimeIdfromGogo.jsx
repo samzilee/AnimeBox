@@ -17,13 +17,6 @@ const FetchAnimeIdfromGogo = ({
       jsf = "Naruto Shippuden";
     }
 
-    if (
-      animeData.title ===
-      "Tensei shitara Slime Datta Ken 3rd Season: Kanwa - Diablo Nikki"
-    ) {
-      jsf = animeData.title.split(":")[0];
-    }
-
     const url = `https://animerunway.vercel.app/anime/gogoanime/${
       jsf || animeData.title || animeData.title_english
     }`;

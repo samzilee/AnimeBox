@@ -78,22 +78,24 @@ const FetchEp = ({ setServers, setFetching, setChangingEP, setError }) => {
       jsf = "Naruto Shippuden";
     }
 
-    let jsm = null;
-    if (
-      dataFromJikan.title ===
-      "Tensei shitara Slime Datta Ken 3rd Season: Kanwa - Diablo Nikki"
-    ) {
-      jsm = dataFromJikan.title.split(":")[0];
-    }
-
     const url = `https://animerunway.vercel.app/anime/gogoanime/${
-      jsf || jsm || dataFromJikan.title || dataFromJikan.title_english
+      jsf || dataFromJikan.title || dataFromJikan.title_english
     }`;
     try {
       const respons = await fetch(url);
       const data = await respons.json();
+
+      let newData = null;
+      newData = data.results.filter(
+        (anime) => anime.releaseDate == dataFromJikan.year
+      );
+
+      if (newData.length < 1) {
+        newData = data.results;
+      }
+
       await FetchAnimeInfo(
-        data.results[0].id,
+        newData[0].id,
         dataFromJikan.title_english || dataFromJikan.title
       );
     } catch (error) {
