@@ -34,6 +34,19 @@ const MainHeader = () => {
     }
   }, [animeSlideID, animeList]);
 
+  useEffect(() => {
+    if (!NowShowing) return;
+    animeList.map((anime) => {
+      const allIndex = document.getElementById(anime.mal_id);
+      allIndex.style.opacity = "0.7";
+      allIndex.style.scale = "";
+    });
+    const animeIndexDisplay = document.getElementById(NowShowing.mal_id);
+
+    animeIndexDisplay.style.opacity = "1";
+    animeIndexDisplay.style.scale = "1.2";
+  }, [NowShowing]);
+
   if (fetchingError) return <Error />;
 
   return (
@@ -43,6 +56,20 @@ const MainHeader = () => {
         setFetchingError={setFetchingError}
       />
       <FetchContinuedAnime setContinueWatch={setContinueWatch} />
+      <ul className="flex gap-2 absolute bottom-[-5px]  w-full justify-center">
+        {animeList[0]
+          ? animeList.map((anime) => {
+              return (
+                <li
+                  key={anime.mal_id}
+                  id={anime.mal_id}
+                  className="p-1 rounded-full bg-blue-400 opacity-[0.7] transition-all duration-[0.5s]"
+                ></li>
+              );
+            })
+          : null}
+      </ul>
+
       {!animeList[0] ? (
         <Loader />
       ) : (

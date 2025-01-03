@@ -15,7 +15,7 @@ const BackGround = ({ NowShowing }) => {
   return (
     <div
       id="slide"
-      className={`absolute left-0 right-0 bottom-[2px] top-0 z-[-1] filter brightness-[0.6] transition-all duration-[0.5s]  ${
+      className={`absolute left-0 right-0 bottom-[2px] top-0 z-[-1] filter brightness-[0.6] transition-all duration-[0.5s]   ${
         move === true ? "scale-[0.9] filter brightness-[0.4]" : ""
       }`}
     >

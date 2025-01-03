@@ -4,14 +4,14 @@ import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 const Nav = ({ setSlideID }) => {
   const Increment = () => {
     setSlideID((currentValue) => {
-      if (currentValue === 4) return 0;
+      if (currentValue === 7) return 0;
       return currentValue + 1;
     });
   };
 
   const Decrement = () => {
     setSlideID((currentValue) => {
-      if (currentValue === 0) return 4;
+      if (currentValue === 0) return 7;
       return currentValue - 1;
     });
   };
