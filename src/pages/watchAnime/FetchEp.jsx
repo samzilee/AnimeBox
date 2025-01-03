@@ -87,7 +87,9 @@ const FetchEp = ({ setServers, setFetching, setChangingEP, setError }) => {
 
       let newData = null;
       newData = data.results.filter(
-        (anime) => anime.releaseDate == dataFromJikan.year
+        (anime) =>
+          anime.releaseDate == dataFromJikan.year ||
+          anime.title === dataFromJikan.title
       );
 
       if (newData.length < 1) {

@@ -27,7 +27,8 @@ const FetchAnimeIdfromGogo = ({
 
       let newData = null;
       newData = data.results.filter(
-        (anime) => anime.releaseDate == animeData.year
+        (anime) =>
+          anime.releaseDate == animeData.year || anime.title === animeData.title
       );
 
       if (newData.length < 1) {
