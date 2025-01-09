@@ -80,6 +80,7 @@ const WatchAnime = () => {
             fetching={fetching}
           />
           <Body
+            watching={watching}
             totalEp={totalEp}
             servers={servers}
             type={type}

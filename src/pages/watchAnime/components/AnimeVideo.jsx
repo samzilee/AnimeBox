@@ -24,22 +24,6 @@ const AnimeVideo = ({ watching, changingEp, fetching }) => {
               watching.tracks.filter((track) => track.kind === "thumbnails")[0]
             }
           />
-          <div className="text-center py-2 bg-gray-600 bg-opacity-[0.5] font-mono relative">
-            <p className="text-[0.9rem]">
-              You are watching{" "}
-              <span className="text-blue-400">
-                Episode {watching.aboutAnime.episodeNo}
-              </span>
-            </p>
-            <p className="font-bold text-[0.8rem] text-gray-500">
-              {" "}
-              {watching.aboutAnime.name}
-            </p>
-            <p className=" absolute top-[5px] right-[5px] text-gray-400">
-              {watching.type.slice(0, 1).toUpperCase() +
-                watching.type.slice(1, 3)}
-            </p>
-          </div>
         </div>
       )}
 

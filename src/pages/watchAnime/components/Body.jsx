@@ -4,6 +4,7 @@ import { FiAlertCircle } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 
 const Body = ({
+  watching,
   totalEp,
   servers,
   type,
@@ -17,6 +18,8 @@ const Body = ({
 
   const [search, setSearch] = useState("");
   const [episodes, setEpisodes] = useState([]);
+
+  const [showSevers, setShowServers] = useState(false);
 
   useEffect(() => {
     if (!servers || !totalEp[0]) return;
@@ -86,58 +89,94 @@ const Body = ({
     setServerName(serverName);
   };
 
-  if (!totalEp[0] || !servers) return;
+  if (!totalEp[0] || !servers || !watching.aboutAnime) return;
 
   return (
-    <main className="h-[500px] md:w-[50%] pt-5">
-      <div>
-        <section className=" h-fit px-4 py-2 flex flex-wrap gap-5 ">
-          <div className="flex gap-2">
-            <label className="font-mono">Sub:</label>
-            <ul className="flex flex-wrap gap-2">
-              {!servers.sub[0] ? (
-                <div className=" flex items-center">
-                  <FiAlertCircle className="text-red-400" />
-                </div>
-              ) : (
-                servers.sub.map((server, index) => {
-                  return (
-                    <button
-                      key={index}
-                      id={"sub" + server.serverName}
-                      className="px-2 border-blue-400 border-[1.5px] rounded-full text-blue-400 transition-all duration-[0.3s]"
-                      onClick={() => changeServer("sub", server.serverName)}
-                    >
-                      {server.serverName}
-                    </button>
-                  );
-                })
-              )}
-            </ul>
-          </div>
+    <main className="h-[500px] md:w-[50%]">
+      <header className="text-center py-2 bg-gray-900 bg-opacity-[0.5] font-mono relative">
+        <p className="text-[0.9rem]">
+          You are watching{" "}
+          <span className="text-blue-400">
+            Episode {watching.aboutAnime.episodeNo}
+          </span>
+        </p>
+        <p className="font-bold text-[0.8rem] text-gray-500">
+          {" "}
+          {watching.aboutAnime.name}
+        </p>
+        <p className=" absolute top-[5px] right-[10px] text-gray-600 border-[1px] border-gray-600 px-2 rounded-full ">
+          {watching.type.slice(0, 1).toUpperCase() + watching.type.slice(1, 3)}
+        </p>
+      </header>
+      <div className="pt-5">
+        <section className="px-4">
+          <button
+            className={`border mb-5 px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s]  ${
+              showSevers
+                ? "border-blue-400 border-[1.5px] text-white bg-blue-400"
+                : "text-blue-400 bg-transparent border-blue-400 border-[1.5px]"
+            }`}
+            onClick={() => {
+              setShowServers((current) => {
+                if (current) return false;
+                return true;
+              });
+            }}
+          >
+            Servers
+          </button>
+          <div
+            className={`flex flex-wrap  gap-5 transition-all duration-[0.5s] p-2 ${
+              showSevers ? "h-fit" : "translate-x-full opacity-0 h-0"
+            }`}
+          >
+            <div className="flex gap-2 h-fit ">
+              <label className="font-mono">Sub:</label>
+              <ul className="flex flex-wrap gap-2">
+                {!servers.sub[0] ? (
+                  <div className=" flex items-center">
+                    <FiAlertCircle className="text-red-400" />
+                  </div>
+                ) : (
+                  servers.sub.map((server, index) => {
+                    return (
+                      <button
+                        key={index}
+                        id={"sub" + server.serverName}
+                        className="px-2 border-blue-400 border-[1.5px] rounded-full text-blue-400 transition-all duration-[0.3s]"
+                        onClick={() => changeServer("sub", server.serverName)}
+                      >
+                        {server.serverName}
+                      </button>
+                    );
+                  })
+                )}
+              </ul>
+            </div>
 
-          <div className="flex gap-2">
-            <label className="font-mono">Dub:</label>
-            <ul className="flex flex-wrap gap-2">
-              {!servers.dub[0] ? (
-                <div className=" flex items-center">
-                  <FiAlertCircle className="text-red-400" />
-                </div>
-              ) : (
-                servers.dub.map((server, index) => {
-                  return (
-                    <button
-                      key={index}
-                      id={"dub" + server.serverName}
-                      className="px-2 border-blue-400 border-[1.5px] rounded-full text-blue-400 transition-all duration-[0.3s]"
-                      onClick={() => changeServer("dub", server.serverName)}
-                    >
-                      {server.serverName}
-                    </button>
-                  );
-                })
-              )}
-            </ul>
+            <div className="flex gap-2 h-fit">
+              <label className="font-mono">Dub:</label>
+              <ul className="flex flex-wrap gap-2">
+                {!servers.dub[0] ? (
+                  <div className=" flex items-center">
+                    <FiAlertCircle className="text-red-400" />
+                  </div>
+                ) : (
+                  servers.dub.map((server, index) => {
+                    return (
+                      <button
+                        key={index}
+                        id={"dub" + server.serverName}
+                        className="px-2 border-blue-400 border-[1.5px] rounded-full text-blue-400 transition-all duration-[0.3s]"
+                        onClick={() => changeServer("dub", server.serverName)}
+                      >
+                        {server.serverName}
+                      </button>
+                    );
+                  })
+                )}
+              </ul>
+            </div>
           </div>
         </section>
         <section className="flex items-center p-2">

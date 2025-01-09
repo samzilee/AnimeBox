@@ -21,7 +21,7 @@ const List = ({ Animes }) => {
               <Link
                 key={index}
                 to={`/${anime.id || anime.backUpId}`}
-                className="AnimeList cursor-pointer min-w-[150px] max-w-[150px] h-[200px] rounded-lg relative border"
+                className="AnimeList cursor-pointer min-w-[150px] max-w-[150px] h-[200px] rounded-lg relative "
               >
                 <img
                   src={anime.img}
