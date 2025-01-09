@@ -5,13 +5,14 @@ import { useLocation } from "react-router-dom";
 
 const Main = () => {
   const path = useLocation().pathname;
+
   localStorage.setItem("prevPath", path);
   if (!localStorage.getItem("myList")) {
     localStorage.setItem("myList", JSON.stringify([]));
   }
 
   return (
-    <main className="All h-dvh overflow-y-scroll overflow-x-hidden">
+    <main>
       <MainHeader />
       <MainBody />
       <div className="text-center text-gray-500 font-bold text-[0.8rem] px-2">

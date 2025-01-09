@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BiPlus } from "react-icons/bi";
+import { BiCaptions, BiPlus, BiSolidMicrophone } from "react-icons/bi";
 import { BsPlayCircleFill } from "react-icons/bs";
 import { FcCancel } from "react-icons/fc";
 import { Link } from "react-router-dom";
@@ -13,10 +13,10 @@ const MapList = ({ animeList, setAnimeList }) => {
     });
     if (removeBtnClicked === 2) {
       setRemoveBtnCliked(1);
-      const myList = JSON.parse(localStorage.getItem("myList"));
+      const myList = JSON.parse(localStorage.getItem("myList2"));
       if (!myList) return;
-      let newList = myList.filter((anime) => anime.mal_id !== id);
-      localStorage.setItem("myList", JSON.stringify(newList));
+      let newList = myList.filter((anime) => anime.anime_id !== id);
+      localStorage.setItem("myList2", JSON.stringify(newList));
       return setAnimeList(() => {
         if (!newList[0]) return ["N/V"];
         return newList;
@@ -31,23 +31,28 @@ const MapList = ({ animeList, setAnimeList }) => {
       </div>
     );
 
+  if (!animeList[0]) return;
+
   return (
     <main className="p-3">
       <ul className="flex flex-col gap-4 md:flex-row md:flex-wrap justify-center">
-        {animeList.map((anime) => {
+        {animeList.map((anime, index) => {
           return (
-            <li key={anime.id || anime.mal_id}>
-              <div className=" flex gap-4 md:flex-col  md:w-[150px] ">
-                <div className="max-w-[140px] min-w-[140px] md:max-w-[140px] md:min-w-[130px] flex relative md:h-[200px] h-[180px]">
+            <li key={index}>
+              <div className=" flex gap-4 md:flex-col   ">
+                <div className="flex relative h-[200px] w-[160px]">
                   <img
-                    src={anime.image || anime.images.jpg.image_url}
-                    alt={anime.title}
+                    src={anime.img}
+                    alt={anime.name}
                     className="size-full rounded-lg AnimeList object-cover "
                   />
+                  <p className="text-[0.7rem] absolute  bg-red-400 right-0 mr-1 mt-1 px-1 rounded-sm">
+                    <span>{anime.rated ? "18+" : ""}</span>
+                  </p>
 
                   <Link
-                    to={`/${anime.id || anime.title.split("/").join(" ")}`}
-                    className="absolute  w-full h-full top-0 flex justify-center items-center cursor-pointer"
+                    to={`/${anime.id}`}
+                    className="absolute w-full h-full flex justify-center items-center cursor-pointer rla"
                   >
                     <div className="bg-gray-400 p-1 rounded-full ">
                       <BsPlayCircleFill />
@@ -57,57 +62,58 @@ const MapList = ({ animeList, setAnimeList }) => {
 
                 <div className=" flex-1 flex flex-col justify-between  ">
                   <div className="flex flex-col">
-                    <p className="font-semibold text-[1.1rem] md:hidden">{`${
-                      anime.title.length > 20
-                        ? anime.title.slice(0, 20) + "..."
-                        : anime.title
+                    <p className="font-semibold text-[1.1rem] md:text-[0.8rem]">{`${
+                      anime.name.length > 20
+                        ? anime.name.slice(0, 20) + "..."
+                        : anime.name
                     }`}</p>
-                    <p className="font-semibold text-[1.1rem] hidden md:block">
-                      {`${
-                        anime.title.length > 15
-                          ? anime.title.slice(0, 15) + "..."
-                          : anime.title
-                      }`}
-                    </p>
 
-                    <div className="md:flex items-center gap-1 text-blue-400">
-                      <p className="text-[0.8rem] font-semibold text-gray-300">
-                        Duration: <span>{anime.duration}</span>
-                      </p>
-
-                      <p className="text-[0.7rem]  ">
-                        type: <span>{anime.type}</span>
-                      </p>
-                      {!anime.mal_id ? (
-                        <div className="flex gap-1 text-[0.6rem]">
-                          <p>
-                            Sub:{" "}
-                            <span className="text-gray-200">{anime.sub}</span>
-                          </p>
-                          <p>
-                            Dub:{" "}
-                            <span className="text-gray-200">{anime.dub}</span>
-                          </p>
-                        </div>
+                    <div className="flex flex-col  gap-1 ">
+                      {anime.duration === "m" ? (
+                        <p className="text-[0.8rem] font-semibold text-gray-300">
+                          Duration: <span>N/A</span>
+                        </p>
                       ) : (
-                        <ul className="flex gap-1 text-[0.7rem] ">
-                          [
-                          {anime.genres.map((genre) => {
-                            return <li key={genre.mal_id}>{genre.name}</li>;
-                          })}
-                          ]
-                        </ul>
+                        <p className="text-[0.8rem] font-semibold text-gray-300">
+                          Duration: <span>{anime.duration}</span>
+                        </p>
                       )}
+
+                      <div className="flex gap-1 text-[0.8rem]  text-black">
+                        <div className="flex items-center bg-[#b0e3af] px-2 font-bold rounded-l">
+                          <div>
+                            <BiCaptions />
+                          </div>
+                          <p className="">{anime.episodes.sub || "N/A"}</p>
+                        </div>
+
+                        <div
+                          className="
+                        flex items-center  px-2 font-bold  bg-[#e3b5cd] "
+                        >
+                          <div>
+                            <BiSolidMicrophone />
+                          </div>
+                          <p className="">{anime.episodes.dub || "N/A"}</p>
+                        </div>
+
+                        <div
+                          className="
+                          px-2 font-bold  bg-gray-400 rounded-r"
+                        >
+                          <p className="">{anime.episodes.eps || "N/A"}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   <div className=" flex items-start mt-5 w-fit  h-full">
-                    {anime.mal_id ? (
+                    {anime.anime_id ? (
                       <button
                         className="border-[1.4px]
                     opacity-[0.5] hover:opacity-[1] cursor-pointer
                   flex items-center text-[0.8rem] font-bold pr-4 px-2 py-1 rounded-full text-red-500 border-red-500 relative"
-                        onClick={() => removeFromList(anime.mal_id)}
+                        onClick={() => removeFromList(anime.anime_id)}
                       >
                         {" "}
                         <p
@@ -120,17 +126,10 @@ const MapList = ({ animeList, setAnimeList }) => {
                           Click Again
                         </p>
                         <FcCancel className="text-[1.2rem]" />
-                        Remove From List
+                        Remove
                       </button>
                     ) : (
-                      <button
-                        className="border-[1.4px]
-                   opacity-[0.5] cursor-not-allowed
-                  flex items-center text-[0.8rem] font-bold pr-4 px-2 py-1 rounded-full "
-                      >
-                        <BiPlus className="text-[1.2rem]" />
-                        My List
-                      </button>
+                      ""
                     )}
                   </div>
                 </div>

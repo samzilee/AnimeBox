@@ -1,197 +1,183 @@
 import React, { useEffect, useState } from "react";
-import { BiSearch } from "react-icons/bi";
-import { CgClose } from "react-icons/cg";
+import { FaSearch } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 
 const Body = ({
+  totalEp,
   servers,
-  watching,
-  setServerName,
+  type,
+  serverName,
   setType,
-  showServer,
-  setShowServer,
+  setServerName,
+  videoTime,
 }) => {
-  const path = useLocation().pathname;
-  const ep = path.split("-episode-");
-  const animeName = ep[0].toString();
-  const [epInput, setEpInput] = useState("");
-  const [episodes, setEPisodes] = useState([]);
-  const [closeMenuPc, setColseMenuPc] = useState(false);
+  const path = useLocation().pathname + useLocation().search;
+  const epID = path.slice(10);
+
+  const [search, setSearch] = useState("");
+  const [episodes, setEpisodes] = useState([]);
 
   useEffect(() => {
-    if (!servers) return;
-    if (!servers.Totalep) return;
-    setEPisodes(() => {
-      if (epInput === "") return servers.Totalep;
-      return servers.Totalep.filter(
-        (episode) => episode.number === parseInt(epInput)
-      );
-    });
-  }, [epInput, servers]);
+    if (!servers || !totalEp[0]) return;
+    const epName = totalEp.filter(
+      (ep) => ep.episodeNo === servers.episodeNo
+    )[0];
+    localStorage.setItem(
+      "continueWatching2",
+      JSON.stringify({
+        episodeNo: servers.episodeNo,
+        episodeId: servers.episodeId,
+        episodeName: epName.name,
+      })
+    );
+  }, [servers, totalEp, videoTime]);
 
-  if (!servers) return;
-  if (!watching) return;
-
-  const epPlaying = document.getElementById(ep[1]);
-  if (epPlaying !== null) {
-    episodes.map((episode) => {
-      const notClikedBtn = document.getElementById(episode.number);
-      if (notClikedBtn !== null) {
-        notClikedBtn.style.backgroundColor = "transparent";
-        notClikedBtn.style.color = "rgb(96, 165, 250)";
-        epPlaying.style.backgroundColor = "rgb(96, 165, 250)";
-        epPlaying.style.color = "white";
-      }
+  useEffect(() => {
+    if (!totalEp[0]) return;
+    setEpisodes((current) => {
+      if (!current) return totalEp;
+      return totalEp.slice(parseInt(search) - 1);
     });
-    epPlaying.style.backgroundColor = "rgb(96, 165, 250)";
-    epPlaying.style.color = "white";
-  }
+  }, [search, totalEp, path]);
+
+  useEffect(() => {
+    if (!totalEp[0]) return;
+    episodes.map((ep) => {
+      const epsBtn = document.getElementById(ep.episodeId);
+      if (!epsBtn) return;
+      epsBtn.style.backgroundColor = "";
+    });
+
+    const epBtn = document.getElementById(epID);
+    if (!epBtn) return;
+    epBtn.style.backgroundColor = "rgb(96,165,250)";
+  }, [totalEp, path, search, episodes]);
+
+  useEffect(() => {
+    const clickedBtn = document.getElementById(type + serverName);
+    if (clickedBtn) {
+      clickedBtn.style.backgroundColor = "rgb(96,165,250)";
+      clickedBtn.style.color = "white";
+    }
+  }, [type, serverName, servers, totalEp]);
+
+  const changeServer = (type, serverName) => {
+    //sub
+    servers.sub.map((server) => {
+      const btn = document.getElementById("sub" + server.serverName);
+      if (!btn) return;
+      btn.style.backgroundColor = "transparent";
+      btn.style.color = "rgb(96,165,250)";
+    });
+    //dub
+    servers.dub.map((server) => {
+      const btn = document.getElementById("dub" + server.serverName);
+      if (!btn) return;
+      btn.style.backgroundColor = "transparent";
+      btn.style.color = "rgb(96,165,250)";
+    });
+
+    const clickedBtn = document.getElementById(type + serverName);
+    clickedBtn.style.backgroundColor = "rgb(96,165,250)";
+    clickedBtn.style.color = "white";
+
+    setType(type);
+    setServerName(serverName);
+  };
+
+  if (!totalEp[0] || !servers) return;
 
   return (
-    <main
-      className={`flex-1 transition-all duration-[0.5s] overflow-hidden ${
-        closeMenuPc ? " w-0 flex-none" : ""
-      }`}
-    >
-      <header>
-        <div className="text-center bg-gray-700 bg-opacity-[0.3] text-[0.9rem] py-1 relative ">
-          <p>
-            You are watching{" "}
-            <span className="text-blue-300">Episode {ep[1]}</span>
-          </p>
-          <div
-            className={` fixed right-0 top-0 pt-1 pr-2 text-[1.3rem] hidden md:block ${
-              closeMenuPc ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            <CgClose
-              className="size-full cursor-pointer"
-              onClick={() => {
-                if (closeMenuPc) return setColseMenuPc(false);
-                setColseMenuPc(true);
-              }}
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-4 px-5 pt-5 pb-1">
-          <button
-            className={`px-3 rounded-full  py-[0.5px] transition-all duration-[0.5s] border-[1.5px] border-blue-400  ${
-              showServer ? "bg-blue-400" : "text-blue-400 "
-            }`}
-            onClick={() => {
-              setShowServer((current) => {
-                if (current === true) return false;
-                return true;
-              });
-            }}
-          >
-            Servers
-          </button>
-          {!watching.server[0].name ? (
-            ""
-          ) : (
-            <p className="text-[0.8rem] text-gray-400">
-              {watching.server[0].name}{" "}
-              <span className="font-bold">{watching.type}</span>
-            </p>
-          )}
-        </div>
-      </header>
-
-      <main>
-        <div
-          className={`p-2  pl-5 flex flex-col gap-3 transition-all duration-[0.5s] ${
-            showServer
-              ? "h-[100%]"
-              : "translate-x-[100%] overflow-hidden opacity-0 h-0"
-          }`}
-        >
-          <p className="text-center font-mono font-semibold text-blue-300 text-[0.7rem]">
-            {servers.animeName}
-          </p>
+    <main className="h-[500px] md:w-[50%] pt-5">
+      <div>
+        <section className=" h-fit px-4 py-2 flex flex-wrap gap-5 ">
           <div className="flex gap-2">
-            <p className="font-bold">Sub:</p>
-            <ul className="flex flex-wrap gap-3">
-              {!servers.sub || servers.sub.message ? (
-                <FiAlertCircle className="text-red-500  items-center" />
+            <label className="font-mono">Sub:</label>
+            <ul className="flex flex-wrap gap-2">
+              {!servers.sub[0] ? (
+                <div className=" flex items-center">
+                  <FiAlertCircle className="text-red-400" />
+                </div>
               ) : (
-                servers.sub.map((server) => {
+                servers.sub.map((server, index) => {
                   return (
                     <button
-                      key={server.name}
-                      className="border-[1.5px] border-blue-400 text-blue-400 px-2 py-1 rounded-full cursor-pointer hover:border-blue-200 text-[0.8rem] hover:text-blue-200 transition-all duration-[0.5s]"
-                      onClick={() => {
-                        setServerName(server.name);
-                        setType("sub");
-                      }}
+                      key={index}
+                      id={"sub" + server.serverName}
+                      className="px-2 border-blue-400 border-[1.5px] rounded-full text-blue-400 transition-all duration-[0.3s]"
+                      onClick={() => changeServer("sub", server.serverName)}
                     >
-                      {server.name}
+                      {server.serverName}
                     </button>
                   );
                 })
               )}
             </ul>
           </div>
+
           <div className="flex gap-2">
-            <p className="font-bold">Dub:</p>
-            <ul className="flex flex-wrap gap-3 items-center">
-              {!servers.dub || servers.dub.message ? (
-                <FiAlertCircle className="text-red-500 " />
+            <label className="font-mono">Dub:</label>
+            <ul className="flex flex-wrap gap-2">
+              {!servers.dub[0] ? (
+                <div className=" flex items-center">
+                  <FiAlertCircle className="text-red-400" />
+                </div>
               ) : (
-                servers.dub.map((server) => {
+                servers.dub.map((server, index) => {
                   return (
                     <button
-                      key={server.name}
-                      className="border-[1.5px] border-blue-400 text-blue-400 px-2 py-1 rounded-full cursor-pointer hover:border-blue-200 text-[0.8rem] hover:text-blue-200 transition-all duration-[0.5s]"
-                      onClick={() => {
-                        setServerName(server.name);
-                        setType("dub");
-                      }}
+                      key={index}
+                      id={"dub" + server.serverName}
+                      className="px-2 border-blue-400 border-[1.5px] rounded-full text-blue-400 transition-all duration-[0.3s]"
+                      onClick={() => changeServer("dub", server.serverName)}
                     >
-                      {server.name}
+                      {server.serverName}
                     </button>
                   );
                 })
               )}
             </ul>
           </div>
-        </div>
-        <div>
-          <div className="flex justify-end px-6 py-2 ">
-            <div className="flex items-center px-2 py-1 rounded-xl bg-gray-400 bg-opacity-[0.2] ">
-              <BiSearch className="text-[1.5rem]" />
-              <input
-                type="number"
-                placeholder="Search Ep"
-                className="px-1 w-[150px] bg-transparent outline-none"
-                value={epInput}
-                onChange={(e) => setEpInput(e.target.value)}
-              />
-            </div>
-          </div>
+        </section>
+        <section className="flex items-center p-2">
+          <div className="All flex flex-col gap-3 h-[340px] p-5 bg-gray-900 bg-opacity-[0.5] rounded-md w-full">
+            <header className="w-full flex justify-between h-fit flex-shrink gap-3 items-center">
+              <label className="text-gray-400 font-mono text-nowrap text-[15px]">
+                Total Episodes: <span>{totalEp.length}</span>
+              </label>
 
-          <div className=" bg-gray-600 bg-opacity-[0.2] flex p-5">
-            <ul className="All flex flex-wrap gap-2 max-h-[250px] overflow-y-scroll  pl-[4%] w-fit">
-              {episodes.map((episode) => {
-                if (episode.number === 0) return;
+              <div className="flex items-center gap-2 px-2 py-1  bg-gray-900 rounded-md h-fit">
+                <FaSearch className="text-[1.2rem]" />
+                <input
+                  type="number"
+                  placeholder="Search Ep"
+                  className="w-full bg-transparent outline-none"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+            </header>
+
+            <ul className="All epList flex flex-wrap gap-2 overflow-auto h-fit max-h-full  w-fit ">
+              {episodes.map((ep, index) => {
                 return (
-                  <Link
-                    to={`${animeName}-episode-${episode.number}`}
-                    key={episode.id}
-                    id={episode.number}
-                    className=" w-10 flex items-center justify-center text-[0.8rem] font-bold h-7 border-[1.5px] 
-                    text-blue-400 border-blue-400 rounded-sm hover:border-blue-300 hover:text-blue-300"
-                  >
-                    <p>{episode.number}</p>
+                  <Link key={index} to={`/watching/${ep.episodeId}`}>
+                    <button
+                      id={ep.episodeId}
+                      className={`w-16 h-9 flex justify-center items-center  bg-opacity-[0.3] rounded-md text-gray-300 font-semibold text-[0.9rem] ${
+                        ep.filler ? "text-blue-300 bg-blue-400" : "bg-gray-500"
+                      }`}
+                    >
+                      {ep.episodeNo}
+                    </button>
                   </Link>
                 );
               })}
             </ul>
           </div>
-        </div>
-      </main>
+        </section>
+      </div>
     </main>
   );
 };

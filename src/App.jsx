@@ -17,18 +17,22 @@ const App = () => {
     {
       element: <AboutAnime />,
       path: "/:animeTitle",
+      errorElement: <ErrorPath />,
     },
     {
       element: <WatchAnime />,
       path: "/watching/:episode",
+      errorElement: <ErrorPath />,
     },
     {
       element: <MainSearch />,
       path: "/search",
+      errorElement: <ErrorPath />,
     },
     {
       element: <SeeAll />,
       path: "/see-all/:value",
+      errorElement: <ErrorPath />,
     },
   ]);
 

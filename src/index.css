@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100dvh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: rgb(31, 41, 55);
+  color: white;
+  padding-bottom: 1.25rem;
+}
+
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 50px;
@@ -54,4 +69,57 @@
 }
 .AnimeList {
   animation: loader 2s infinite;
+  border-radius: 0.5rem;
+}
+@media (max-width: 500px) {
+  .epList {
+    justify-content: center;
+  }
+}
+
+#my-video {
+  width: 100%;
+  height: 370px;
+  min-height: 370px;
+}
+
+@media (min-width: 768px) {
+  #my-video {
+    height: 100%;
+  }
+  #container {
+    height: 100%;
+  }
+}
+
+.vjs-modal-dialog::-webkit-scrollbar {
+  background-color: transparent;
+  width: 5px;
+}
+.vjs-modal-dialog::-webkit-scrollbar-thumb {
+  background-color: rgb(16, 89, 153);
+}
+
+.vjs-modal-dialog-content {
+  color: rgb(111, 111, 111);
+  font-weight: bold;
+
+  label {
+    color: white;
+  }
+}
+.vjs-default-button {
+  padding: 2px 5px;
+}
+.vjs-done-button {
+  padding: 2px 5px;
+  background-color: rgb(96, 165, 250);
+  background: transparent;
+}
+
+.vjs-menu-content {
+  opacity: 1;
+  width: 200px;
+  min-width: 200px;
+  right: 0;
 }

@@ -4,19 +4,23 @@ import { FiFilter } from "react-icons/fi";
 import { Form, Link } from "react-router-dom";
 import logo from "../../../Assets/large.png";
 
-const SearchHeader = ({ searchText, setSearchText }) => {
-  const path = localStorage.getItem("prevPath");
+const SearchHeader = ({ searchText, setSearchText, setSearch }) => {
   return (
-    <header className=" flex justify-between items-center p-2">
+    <header className=" flex justify-between items-center p-2 sticky top-0 z-10 bg-gray-800">
       <Link to="/">
         <div className=" w-[5rem]">
           <img src={logo} alt="logo" className="size-full" />
         </div>
       </Link>
       <section className="flex-1 flex justify-center">
-        <div className="flex w-[80%] h-[40px] items-center px-2 py-1 bg-gray-700 bg-opacity-[0.3] rounded-lg">
-          <button>
-            <BiSearch className="text-[1.5rem]" />
+        <form className="flex w-[80%] h-[40px] items-center px-2 py-1 bg-gray-700 bg-opacity-[0.3] rounded-lg">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setSearch(searchText);
+            }}
+          >
+            <BiSearch className="text-[1.8rem]" />
           </button>
           <input
             type="text"
@@ -25,7 +29,7 @@ const SearchHeader = ({ searchText, setSearchText }) => {
             onChange={(e) => setSearchText(e.target.value)}
             className="bg-transparent pl-1 outline-none  flex-1 mr-2"
           />
-        </div>
+        </form>
       </section>
       <section className=" bg-gray-700 bg-opacity-[0.3] p-2 rounded-md cursor-not-allowed relative">
         <FiFilter className="text-[1.5rem] text-gray-600" />

@@ -18,18 +18,18 @@ const MainHeader = () => {
   const [continueWatch, setContinueWatch] = useState(null);
 
   useEffect(() => {
-    if (animeList.length < 7) return;
-    const intervalId = setInterval(() => {
-      setSlideID((prevValue) => {
-        if (prevValue >= animeList.length) return 0;
-        return prevValue + 1;
+    if (animeList.length < 10) return;
+    const interval = setInterval(() => {
+      setSlideID((current) => {
+        if (current >= animeList.length - 1) return 0;
+        return current + 1;
       });
     }, 5000);
-    return () => clearInterval(intervalId);
+    return () => clearInterval(interval);
   }, [animeList]);
 
   useEffect(() => {
-    if (animeList.length === 7 && animeSlideID < animeList.length) {
+    if (animeList.length === 10 && animeSlideID <= animeList.length) {
       setNowShowing(animeList[animeSlideID]);
     }
   }, [animeSlideID, animeList]);
@@ -37,11 +37,11 @@ const MainHeader = () => {
   useEffect(() => {
     if (!NowShowing) return;
     animeList.map((anime) => {
-      const allIndex = document.getElementById(anime.mal_id);
+      const allIndex = document.getElementById(anime.info.anime_id);
       allIndex.style.opacity = "0.7";
       allIndex.style.scale = "";
     });
-    const animeIndexDisplay = document.getElementById(NowShowing.mal_id);
+    const animeIndexDisplay = document.getElementById(NowShowing.info.anime_id);
 
     animeIndexDisplay.style.opacity = "1";
     animeIndexDisplay.style.scale = "1.2";
@@ -50,19 +50,19 @@ const MainHeader = () => {
   if (fetchingError) return <Error />;
 
   return (
-    <header className="Hfooter h-[400px] flex flex-col justify-between relative md:h-screen ">
+    <header className="Hfooter h-[400px] flex flex-col justify-between relative md:h-screen  pb-5">
       <FetchHeader
         setAnimeList={setAnimeList}
         setFetchingError={setFetchingError}
       />
       <FetchContinuedAnime setContinueWatch={setContinueWatch} />
-      <ul className="flex gap-2 absolute bottom-[-5px]  w-full justify-center">
+      <ul className="flex gap-2 absolute bottom-[5px] w-full justify-center">
         {animeList[0]
-          ? animeList.map((anime) => {
+          ? animeList.map((anime, index) => {
               return (
                 <li
-                  key={anime.mal_id}
-                  id={anime.mal_id}
+                  key={index}
+                  id={anime.info.anime_id}
                   className="p-1 rounded-full bg-blue-400 opacity-[0.7] transition-all duration-[0.5s]"
                 ></li>
               );

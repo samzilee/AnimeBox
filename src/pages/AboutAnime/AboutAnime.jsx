@@ -5,14 +5,18 @@ import "./about.css";
 import Loader from "../../Loader";
 import Image from "./components/section1/Image";
 import AnimeInfo from "./components/section1/AnimeInfo";
-import Raco from "./components/section2/Reco";
+import CharacterList from "./components/section2/CharacterList";
 
 import Error from "../../Error";
-import FetchAnimeIdfromGogo from "./FetchAnimeIdfromGogo";
+import FetchEpisodes from "./FetchEpisodes";
 import EpList from "./components/section2/EpList";
+import RelatedAnimes from "./components/section2/RelatedAnimes";
+
+//About-main-page
 const AboutAnime = () => {
-  const animeName = useLocation();
+  const [mainAnimeData, setMainAnimeData] = useState();
   const [animeData, setAnimeData] = useState(null);
+
   const [error, setError] = useState(false);
   const [animeId, setAnimeId] = useState("");
   const [availableEp, setAvailableEp] = useState([]);
@@ -21,15 +25,15 @@ const AboutAnime = () => {
 
   if (error) return <Error />;
   return (
-    <main className="All h-dvh pb-5 overflow-y-scroll " id="mainAbout">
+    <main id="mainAbout">
       <FetchAbout
-        animeName={animeName.pathname}
+        setMainAnimeData={setMainAnimeData}
         setAnimeData={setAnimeData}
         setError={setError}
         setCharacters={setCharacters}
+        setFetching={setFetching}
       />
-      <FetchAnimeIdfromGogo
-        animeData={animeData}
+      <FetchEpisodes
         setAnimeId={setAnimeId}
         setAvailableEp={setAvailableEp}
         setFetching={setFetching}
@@ -39,16 +43,14 @@ const AboutAnime = () => {
         <>
           <Image animeData={animeData} />
           <AnimeInfo
+            mainAnimeData={mainAnimeData}
             animeData={animeData}
             animeId={animeId}
             availableEp={availableEp}
           />
-          <EpList
-            animeData={animeData}
-            animeId={animeId}
-            availableEp={availableEp}
-          />
-          <Raco characters={characters} trailer={animeData.trailer} />
+          <EpList animeData={animeData} availableEp={availableEp} />
+          <CharacterList characters={characters} trailer={animeData.trailer} />
+          <RelatedAnimes related={mainAnimeData.relatedAnimes.slice(0, 15)} />
         </>
       ) : (
         <Loader />

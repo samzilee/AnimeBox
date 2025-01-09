@@ -11,6 +11,7 @@ const SeeAll = () => {
   const path = useLocation().pathname;
   let type = path.slice(9);
   const [animeList, setAnimeList] = useState([]);
+  const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -19,11 +20,8 @@ const SeeAll = () => {
   localStorage.setItem("prevPath", path);
 
   return (
-    <main
-      className="All h-dvh pb-5 overflow-y-scroll scroll-smooth"
-      id="SeeAllMain"
-    >
-      <header className="p-2 flex justify-between items-center">
+    <main id="SeeAllMain">
+      <header className="p-2 flex justify-between items-center sticky top-0 z-50 bg-gray-800">
         <section className="flex items-center gap-5 ">
           <Link to="/">
             <FiArrowLeft className="text-[1.5rem] cursor-pointer" />
@@ -81,9 +79,10 @@ const SeeAll = () => {
         setError={setError}
         page={page}
         setHasNextPage={setHasNextPage}
+        setFetching={setFetching}
       />
 
-      {!animeList[0] ? (
+      {fetching ? (
         <Loader />
       ) : (
         <MapList animeList={animeList} setAnimeList={setAnimeList} />

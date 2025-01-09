@@ -1,24 +1,32 @@
 import React, { useEffect } from "react";
 
 const FetchContinuedAnime = ({ setContinueWatch }) => {
-  const continueWatching = localStorage.getItem("continueWatching");
-  if (!continueWatching) return;
-  const AnimeFragment = continueWatching.slice(10).split("-episode-");
+  const continueWatching = JSON.parse(
+    localStorage.getItem("continueWatching2")
+  );
 
-  const fetchAnime = async () => {
-    const url = `https://animerunway.vercel.app/anime/gogoanime/${AnimeFragment[0]}`;
-
+  const fetchAnime = async (animeId, episodeId, episodeNo) => {
+    const url = `https://animerunway2-0.vercel.app/aniwatch/anime/${animeId}`;
     try {
       const respones = await fetch(url);
       const data = await respones.json();
-      setContinueWatch(data.results[0]);
+      setContinueWatch(() => {
+        return {
+          animeData: data.info,
+          episodeId: episodeId,
+          ...continueWatching,
+        };
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchAnime();
+    if (!continueWatching) return;
+
+    const animeId = continueWatching.episodeId.split("?")[0];
+    fetchAnime(animeId);
   }, []);
 
   return <></>;

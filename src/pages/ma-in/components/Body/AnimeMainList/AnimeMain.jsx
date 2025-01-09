@@ -3,7 +3,7 @@ import FetchAnime from "./FetchAnime";
 import List from "./List";
 
 const AnimeMain = () => {
-  const [Animes, setAnimes] = useState(null);
+  const [Animes, setAnimes] = useState([]);
 
   return (
     <div>

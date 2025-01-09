@@ -3,13 +3,17 @@ import FetchEp from "./FetchEp";
 import AnimeVideo from "./components/AnimeVideo";
 import Body from "./components/Body";
 import Error from "../../Error";
+import { useLocation } from "react-router-dom";
 
 const WatchAnime = () => {
+  const [totalEp, setTotalEp] = useState([]);
   const [servers, setServers] = useState(null);
   const [watching, setWatching] = useState(null);
-  const [serverName, setServerName] = useState("Gogo server");
+  const [selection, setSelection] = useState(null);
+
   const [type, setType] = useState("sub");
-  const [showServer, setShowServer] = useState(false);
+  const [serverName, setServerName] = useState("vidsrc");
+
   const [fetching, setFetching] = useState(true);
   const [changingEp, setChangingEP] = useState(true);
   const [error, setError] = useState(false);
@@ -17,64 +21,71 @@ const WatchAnime = () => {
   useEffect(() => {
     if (!servers) return;
     if (type === "sub") {
-      if (!servers.sub) return;
-      setWatching(() => {
-        const serverFilter = servers.sub.filter(
-          (server) => server.name === serverName
-        );
-        if (serverFilter.length === 0)
-          return {
-            server: [servers.sub[0]],
-            type: "sub",
-          };
+      const serverNameFilter = servers.sub.filter(
+        (server) => server.serverName === serverName
+      );
+      if (!servers.sub[0]) return setType("dub");
+      return setSelection(() => {
         return {
-          server: servers.sub.filter((server) => server.name === serverName),
           type: "sub",
+          serverName: serverNameFilter[0] || servers.sub[0],
+          episodeId: servers.episodeId,
         };
       });
     } else if (type === "dub") {
-      if (!servers.dub) return;
-      setWatching(() => {
-        const serverFilter = servers.sub.filter(
-          (server) => server.name === serverName
-        );
-        if (serverFilter.length === 0)
-          return {
-            server: [servers.dub[0]],
-            type: "sub",
-          };
+      const serverNameFilter = servers.dub.filter(
+        (server) => server.serverName === serverName
+      );
+      if (!servers.dub[0]) return setType("sub");
+      return setSelection(() => {
         return {
-          server: servers.dub.filter((server) => server.name === serverName),
           type: "dub",
+          serverName: serverNameFilter[0] || servers.dub[0],
+          episodeId: servers.episodeId,
         };
       });
     }
-  }, [servers, type, serverName]);
+  }, [serverName, type, servers]);
+
+  useEffect(() => {
+    if (!totalEp || !servers) return;
+    setWatching((current) => {
+      const list = totalEp.filter((ep) => ep.episodeNo === servers.episodeNo);
+      return {
+        ...current,
+        aboutAnime: list[0],
+        type: type,
+      };
+    });
+  }, [totalEp, servers, serverName, type]);
 
   return (
-    <main className="All h-dvh overflow-y-scroll overflow-x-hidden">
+    <main>
       <FetchEp
         setServers={setServers}
+        setWatching={setWatching}
         setFetching={setFetching}
         setChangingEP={setChangingEP}
         setError={setError}
+        setTotalEp={setTotalEp}
+        selection={selection}
       />
       {error && !fetching ? (
         <Error />
       ) : (
-        <div className="md:flex ">
+        <div className="md:flex">
           <AnimeVideo
             watching={watching}
             changingEp={changingEp}
             fetching={fetching}
           />
           <Body
+            totalEp={totalEp}
             servers={servers}
-            watching={watching}
-            setServerName={setServerName}
+            type={type}
+            serverName={serverName}
             setType={setType}
-            showServer={showServer}
-            setShowServer={setShowServer}
+            setServerName={setServerName}
           />
         </div>
       )}

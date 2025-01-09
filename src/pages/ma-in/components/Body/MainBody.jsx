@@ -14,27 +14,27 @@ const MainBody = () => {
     {
       type: "Top Airing",
       typeUrl: "top-airing",
-      url: "https://animerunway.vercel.app/anime/zoro/top-airing",
+      url: "https://animerunway2-0.vercel.app/aniwatch/top-airing",
     },
     {
       type: "New Episode Releases",
-      typeUrl: "recent-episodes",
-      url: "https://animerunway.vercel.app/anime/zoro/recent-episodes",
+      typeUrl: "recently-updated",
+      url: "https://animerunway2-0.vercel.app/aniwatch/recently-updated",
     },
     {
       type: "Popular",
       typeUrl: "most-popular",
-      url: "https://animerunway.vercel.app/anime/zoro/most-popular",
+      url: "https://animerunway2-0.vercel.app/aniwatch/most-popular",
     },
     {
       type: "Latest Completed",
-      typeUrl: "latest-completed",
-      url: "https://animerunway.vercel.app/anime/zoro/latest-completed",
+      typeUrl: "completed",
+      url: "https://animerunway2-0.vercel.app/aniwatch/completed",
     },
     {
       type: "Movies",
       typeUrl: "movie",
-      url: "https://animerunway.vercel.app/anime/zoro/movie",
+      url: "https://animerunway2-0.vercel.app/aniwatch/movie",
     },
   ];
 

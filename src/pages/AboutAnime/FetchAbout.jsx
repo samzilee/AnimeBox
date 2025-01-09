@@ -1,59 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
+const FetchAbout = ({
+  setMainAnimeData,
+  setAnimeData,
+  setError,
+  setCharacters,
+  setFetching,
+}) => {
   const path = useLocation().pathname;
   localStorage.setItem("AboutPath", path);
 
-  const FetchEnglishNameFromZoro = async () => {
-    const url = `https://animerunway.vercel.app/anime/zoro/info?id=${animeName.slice(
-      1
-    )}`;
+  const FetchInfoForJikan = async () => {
+    setFetching(true);
     try {
-      const respons = await fetch(url);
+      const respons = await fetch(
+        `https://animerunway2-0.vercel.app/aniwatch/anime${path}`
+      );
       const data = await respons.json();
-      FetchAbout(data);
+      setMainAnimeData(data);
+
+      FetchAbout(
+        data.moreInfo["Japanese:"] || data.info.name,
+        data.info.mal_id
+      );
     } catch (error) {
       console.log(error);
       setError(true);
     }
   };
 
-  const FetchAbout = async (ForJikan) => {
-    const url = `https://api.jikan.moe/v4/anime?q=${
-      ForJikan.message ? animeName.slice(1) : ForJikan.title
-    }`;
-
+  const FetchAbout = async (animename, id) => {
+    const url = `https://api.jikan.moe/v4/anime?q=${animename}`;
     try {
       const respons = await fetch(url);
       const data = await respons.json();
 
-      let newShit = await data.data.filter(
-        (anime) =>
-          anime.title_english === ForJikan.title ||
-          anime.title === ForJikan.title ||
-          anime.title_english === animeName.slice(1).split("%20").join(" ") ||
-          anime.title === animeName.slice(1).split("%20").join(" ")
-      );
+      let newData = await data.data.filter((anime) => anime.mal_id === id);
 
-      if (newShit.length >= 2) {
-        newShit = await newShit.filter(
-          (anime) => ForJikan.totalEpisodes == anime.episodes
-        );
+      if (!newData[0]) {
+        newData = [data.data[0]];
       }
 
-      if (!newShit[0]) {
-        newShit = await data.data.filter(
-          (anime) => ForJikan.totalEpisodes == anime.episodes
-        );
-      }
-
-      if (!newShit[0]) {
-        newShit = await data.data;
-      }
-
-      await setAnimeData(newShit[0]);
-      await FetchCharacter(newShit[0].mal_id);
+      setAnimeData(newData[0]);
+      FetchCharacter(newData[0].mal_id);
     } catch (err) {
       console.log(err);
       setError(true);
@@ -72,7 +62,7 @@ const FetchAbout = ({ animeName, setAnimeData, setError, setCharacters }) => {
   };
 
   useEffect(() => {
-    FetchEnglishNameFromZoro();
+    FetchInfoForJikan();
   }, [path]);
 
   return <div></div>;

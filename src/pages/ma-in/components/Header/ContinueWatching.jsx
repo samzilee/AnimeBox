@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 const ContinueWatching = ({ continueWatch }) => {
   const [showCon, setShowCon] = useState(false);
 
-  const localValuePath = localStorage.getItem("continueWatching");
-  if (!localValuePath) return null;
-
-  const FixlocalValue = localValuePath.slice(10).split("-episode-");
-
   useEffect(() => {
     const showCon = setTimeout(() => {
       setShowCon(true);
@@ -28,34 +23,39 @@ const ContinueWatching = ({ continueWatch }) => {
   if (!continueWatch) return;
 
   return (
-    <div
+    <Link
+      to={`/watching/${continueWatch.episodeId}`}
       className={` fixed w-[250px] h-[80px] right-0 bg-gray-700 bottom-5 rounded-l-2xl flex cursor-pointer transition-all duration-[0.5s] z-50 ${
         showCon ? "" : "translate-x-[100%]"
       }`}
     >
       <div className="h-full w-[70px] py-2 pl-2">
         <img
-          src={continueWatch.image}
-          alt={continueWatch.title}
+          src={continueWatch.animeData.img}
+          alt={continueWatch.animeData.name}
           className="size-full object-cover rounded-xl"
         />
       </div>
-      <div className="text-[0.5rem] flex-1  py-2 pl-2">
-        <p>{continueWatch.title}</p>
-        <p className="text-[0.6rem]">
-          Episode <span>{FixlocalValue[1]}</span>
-        </p>
-        <Link
-          to={localValuePath}
-          className="text-[0.9rem] flex items-center gap-2"
-        >
+      <div className="flex-1  py-2 pl-2 flex flex-col justify-between">
+        <div>
+          <p className="text-[0.7rem]">
+            {continueWatch.episodeName.length > 20
+              ? continueWatch.episodeName.slice(0, 20) + "..."
+              : continueWatch.episodeName}
+          </p>
+          <p className="text-[0.6rem]">
+            Episode <span>{continueWatch.episodeNo}</span>
+          </p>
+        </div>
+
+        <div className="text-[0.9rem] flex items-center gap-2">
           Continue Watching{" "}
           <span className="text-[1rem]">
             <FiArrowRight />
           </span>
-        </Link>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

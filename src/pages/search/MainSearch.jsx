@@ -8,15 +8,22 @@ import "./search.css";
 const MainSearch = () => {
   const path = useLocation().pathname;
   const [searchText, setSearchText] = useState("");
+  const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
+
   localStorage.setItem("prevPath", path);
 
   return (
-    <main className="All h-dvh pb-5 overflow-y-scroll">
-      <SearchHeader searchText={searchText} setSearchText={setSearchText} />
+    <main>
+      <SearchHeader
+        searchText={searchText}
+        setSearchText={setSearchText}
+        setSearch={setSearch}
+      />
       <FetchSearch
         searchText={searchText}
+        search={search}
         setResult={setResult}
         setLoading={setLoading}
       />

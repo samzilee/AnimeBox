@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiBookmark } from "react-icons/bi";
 import {
   BsFillBookmarkFill,
@@ -6,8 +6,11 @@ import {
   BsStarFill,
 } from "react-icons/bs";
 import { HiArrowSmallRight } from "react-icons/hi2";
-import { Link } from "react-router-dom";
-const AnimeInfo = ({ animeData, animeId, availableEp }) => {
+import { Link, useLocation } from "react-router-dom";
+
+const AnimeInfo = ({ mainAnimeData, animeData, animeId, availableEp }) => {
+  const animeID = useLocation().pathname.slice(1);
+
   const [Wordlength, setWordlength] = useState("short");
   const [animeSaved, setAnimeSaved] = useState(false);
 
@@ -15,19 +18,19 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
     localStorage.getItem("temporarySavedAnime")
   );
 
-  const myList = JSON.parse(localStorage.getItem("myList"));
+  const myList = JSON.parse(localStorage.getItem("myList2"));
 
   useEffect(() => {
     if (!myList) return;
     myList.map((anime) => {
-      const saveBtn = document.getElementById(anime.mal_id);
+      const saveBtn = document.getElementById(anime.anime_id);
       if (saveBtn) {
         setAnimeSaved(true);
       }
     }, []);
 
     if (!temporarySavedAnime) return;
-    const saveBtn = document.getElementById(temporarySavedAnime.mal_id);
+    const saveBtn = document.getElementById(temporarySavedAnime.anime_id);
 
     if (saveBtn) {
       setAnimeSaved(true);
@@ -42,14 +45,18 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
 
     if (!animeSaved) {
       //temporary saving anime for main bookmark
-      localStorage.setItem("temporarySavedAnime", JSON.stringify(animeData));
+      localStorage.setItem(
+        "temporarySavedAnime",
+        JSON.stringify({ ...mainAnimeData.info, backUpId: animeID })
+      );
     } else {
       localStorage.removeItem("temporarySavedAnime");
       if (!myList) return;
       const newMylist = myList.filter(
         (anime) => anime.mal_id !== animeData.mal_id
       );
-      localStorage.setItem("myList", JSON.stringify(newMylist));
+
+      localStorage.setItem("myList2", JSON.stringify(newMylist));
     }
   };
 
@@ -82,13 +89,13 @@ const AnimeInfo = ({ animeData, animeId, availableEp }) => {
           <div>
             {animeSaved ? (
               <BsFillBookmarkFill
-                id={animeData.mal_id}
+                id={mainAnimeData.info.anime_id}
                 className="text-[1.5rem] md:text-[2rem] cursor-pointer  hover:opacity-[1] text-blue-400"
                 onClick={saveAnime}
               />
             ) : (
               <BiBookmark
-                id={animeData.mal_id}
+                id={mainAnimeData.info.anime_id}
                 className="text-[1.5rem] md:text-[2rem] cursor-pointer opacity-[0.5] hover:opacity-[1]"
                 onClick={saveAnime}
               />

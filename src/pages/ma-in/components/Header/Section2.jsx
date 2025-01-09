@@ -9,11 +9,11 @@ const Section2 = ({ NowShowing }) => {
   const [animeSaved, setAnimeSaved] = useState(false);
 
   const styleBtn = () => {
-    const myList = JSON.parse(localStorage.getItem("myList"));
+    const myList = JSON.parse(localStorage.getItem("myList2"));
 
     if (!myList || !NowShowing) return;
     const listCheck = myList.filter(
-      (anime) => anime.mal_id === NowShowing.mal_id
+      (anime) => anime.anime_id === NowShowing.info.anime_id
     );
     if (listCheck[0]) return setAnimeSaved(true);
     return setAnimeSaved(false);
@@ -26,14 +26,17 @@ const Section2 = ({ NowShowing }) => {
   const saveAnime = () => {
     setAnimeSaved(true);
     //temporary saving anime for main bookmark
-    localStorage.setItem("temporarySavedAnime", JSON.stringify(NowShowing));
-    const myList = JSON.parse(localStorage.getItem("myList"));
+    localStorage.setItem(
+      "temporarySavedAnime",
+      JSON.stringify(NowShowing.info)
+    );
+    const myList = JSON.parse(localStorage.getItem("myList2"));
     const temporarySavedAnime = JSON.parse(
       localStorage.getItem("temporarySavedAnime")
     );
 
     localStorage.setItem(
-      "myList",
+      "myList2",
       JSON.stringify([temporarySavedAnime, ...myList])
     );
     localStorage.removeItem("temporarySavedAnime");
@@ -42,13 +45,13 @@ const Section2 = ({ NowShowing }) => {
 
   const removeAnime = () => {
     setAnimeSaved(false);
-    const myList = JSON.parse(localStorage.getItem("myList"));
+    const myList = JSON.parse(localStorage.getItem("myList2"));
     localStorage.removeItem("temporarySavedAnime");
     if (!myList) return;
     const newMylist = myList.filter(
-      (anime) => anime.mal_id !== NowShowing.mal_id
+      (anime) => anime.info.anime_id !== NowShowing.info.anime_id
     );
-    localStorage.setItem("myList", JSON.stringify(newMylist));
+    localStorage.setItem("myList2", JSON.stringify(newMylist));
     styleBtn();
   };
 
@@ -70,15 +73,15 @@ const Section2 = ({ NowShowing }) => {
     >
       <main className="text-white px-5 py-3">
         <header className="text-[1rem] font-bold mb-1">
-          <p>{NowShowing.title}</p>
+          <p>{NowShowing.info.name}</p>
         </header>
         <ul className="text-[0.7rem] mb-1 flex font-semibold gap-1 text-gray-200">
           [
-          {NowShowing.genres.map((genre, index) => {
+          {NowShowing.moreInfo.Genres.map((genre, index) => {
             return (
-              <li key={genre.mal_id}>
-                {genre.name}
-                {NowShowing.genres.length - 1 === index ? "" : ","}
+              <li key={index}>
+                {genre}
+                {NowShowing.moreInfo.Genres.length - 1 === index ? "" : ","}
               </li>
             );
           })}
@@ -86,7 +89,7 @@ const Section2 = ({ NowShowing }) => {
         </ul>
         <div className="flex gap-3">
           <Link
-            to={`/${NowShowing.title.split("/").join(" ")}`}
+            to={`/${NowShowing.info.id}`}
             className="flex items-center gap-1 px-3 py-[1px] rounded-xl bg-blue-400 font-bold"
           >
             <BsPlayCircleFill className="w-[0.9rem]" />
@@ -94,7 +97,7 @@ const Section2 = ({ NowShowing }) => {
           </Link>{" "}
           {animeSaved ? (
             <button
-              id={NowShowing.mal_id}
+              id={NowShowing.info.anime_id}
               className="flex items-center gap-1 px-3 py-[1px]  border-[1.7px] border-blue-400 text-blue-400 rounded-xl font-bold"
               onClick={() => removeAnime()}
             >
@@ -102,7 +105,7 @@ const Section2 = ({ NowShowing }) => {
             </button>
           ) : (
             <button
-              id={NowShowing.mal_id}
+              id={NowShowing.info.anime_id}
               className="flex items-center gap-1 px-3 py-[1px]  border-[1.7px] rounded-xl font-bold "
               onClick={() => saveAnime()}
             >

@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 
-const FetchSearch = ({ searchText, setResult, setLoading }) => {
+const FetchSearch = ({ searchText, setResult, setLoading, search }) => {
   const FetchAnime = async () => {
     const url =
       searchText === ""
-        ? "https://animerunway.vercel.app/anime/zoro/most-popular"
-        : `https://animerunway.vercel.app/anime/zoro/${searchText}`;
+        ? "https://animerunway2-0.vercel.app/aniwatch/most-popular"
+        : `https://animerunway2-0.vercel.app/aniwatch/search?keyword=${searchText}`;
     setLoading(true);
     try {
       const respons = await fetch(url);
       let data = await respons.json();
-      data = data.results;
-      setResult(data);
+      setResult(data.animes);
       setLoading(false);
-      if (!data[0]) {
+
+      if (!data.animes[0]) {
         return setLoading({ message: "Anime Not Found 😢" });
       }
     } catch (err) {
@@ -23,7 +23,7 @@ const FetchSearch = ({ searchText, setResult, setLoading }) => {
   };
   useEffect(() => {
     FetchAnime();
-  }, [searchText]);
+  }, [search]);
 
   return <></>;
 };

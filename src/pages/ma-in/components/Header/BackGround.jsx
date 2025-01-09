@@ -20,8 +20,8 @@ const BackGround = ({ NowShowing }) => {
       }`}
     >
       <img
-        src={NowShowing.images.jpg.large_image_url}
-        alt={NowShowing.title_english || NowShowing.title}
+        src={NowShowing.info.img}
+        alt={NowShowing.info.name || NowShowing.moreInfo.Japanese}
         className="size-full object-cover"
       />
     </div>

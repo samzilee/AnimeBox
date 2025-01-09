@@ -1,9 +1,9 @@
 import React from "react";
 import ErrorTrailer from "./ErrorTrailer";
-const Reco = ({ characters, trailer }) => {
+const CharacterList = ({ characters, trailer }) => {
   return (
-    <section>
-      <div className="h-[250px] md:w-[500px] px-4 mt-4">
+    <section className="md:flex">
+      <div className="h-[250px] md:w-[500px] px-4 mt-4  flex-shrink-0">
         {!trailer.embed_url ? (
           <ErrorTrailer />
         ) : (
@@ -16,7 +16,7 @@ const Reco = ({ characters, trailer }) => {
           ></iframe>
         )}
       </div>
-      <div>
+      <div className="w-full overflow-hidden  border-gray-600 border-l-[1.5px]">
         <header className=" p-2 font-bold text-blue-400 text-[0.9rem] pl-5 ">
           <p>
             Characters <span>({characters.length})</span>
@@ -25,7 +25,7 @@ const Reco = ({ characters, trailer }) => {
         {!characters[0] ? (
           <p className="pl-5 font-bold">N/A</p>
         ) : (
-          <ul className="Allside flex overflow-x-scroll gap-5 px-5  h-[230px]">
+          <ul className="Allside flex overflow-x-scroll gap-5   h-[230px] mx-3">
             {characters.map((character) => {
               return (
                 <li
@@ -51,4 +51,4 @@ const Reco = ({ characters, trailer }) => {
   );
 };
 
-export default Reco;
+export default CharacterList;

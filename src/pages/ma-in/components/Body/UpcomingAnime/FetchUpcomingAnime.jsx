@@ -1,25 +1,23 @@
 import React, { useEffect } from "react";
 
-const FetchUpcomingAnime = ({ setUpcomingAnime }) => {
+const FetchUpcomingAnime = ({ setUpcomingAnime, page, setFetching }) => {
   const fetchUpcoming = async () => {
-    const url = "https://api.jikan.moe/v4/seasons/upcoming";
-
+    setFetching(true);
+    const url = `https://animerunway2-0.vercel.app/aniwatch/top-upcoming?page=${page}`;
     try {
       const respons = await fetch(url);
       const data = await respons.json();
-      setUpcomingAnime(data.data);
+      setUpcomingAnime(data);
+      setFetching(false);
     } catch (error) {
+      setFetching(false);
       console.log(error);
     }
   };
 
   useEffect(() => {
-    const fetch = setTimeout(() => {
-      fetchUpcoming();
-    }, 5000);
-
-    return () => clearTimeout(fetch);
-  }, []);
+    fetchUpcoming();
+  }, [page]);
 
   return <></>;
 };
