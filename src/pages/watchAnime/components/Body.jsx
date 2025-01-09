@@ -109,7 +109,7 @@ const Body = ({
         </p>
       </header>
       <div className="pt-5">
-        <section className="px-4">
+        <section className="px-4  flex flex-col">
           <button
             className={`border mb-5 px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s]  ${
               showSevers
@@ -126,8 +126,10 @@ const Body = ({
             Servers
           </button>
           <div
-            className={`flex flex-wrap  gap-5 transition-all duration-[0.5s] p-2 ${
-              showSevers ? "h-fit" : "translate-x-full opacity-0 h-0"
+            className={`p-2 flex flex-col gap-3 transition-all duration-[0.5s] bg-gray-900 bg-opacity-[0.5] rounded-md ${
+              showSevers
+                ? "h-[100%]"
+                : "translate-x-[100%] overflow-hidden opacity-0 h-0"
             }`}
           >
             <div className="flex gap-2 h-fit ">
