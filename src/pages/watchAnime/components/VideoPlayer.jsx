@@ -18,7 +18,8 @@ const VideoPlayer = ({ src, captions, poster }) => {
 
       captions.map((track) => {
         const trackElement = document.createElement("track");
-        trackElement.src = `/api${track.file.split("store")[1]}`;
+        trackElement.src =
+          "/.netlify/functions/proxy-caption" + track.file.split("store")[1];
         trackElement.kind = track.kind || "subtitles";
         trackElement.label = track.label;
         trackElement.default = track.default || false;

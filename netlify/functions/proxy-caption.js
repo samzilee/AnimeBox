@@ -1,17 +1,16 @@
 const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
-  // Extract the part of the path after '/api' to form the correct URL
-  const captionPath = event.path.replace(/^\/api/, '');  // Remove "/api" prefix
-  const captionUrl = `https://ccb.megafiles.store${captionPath}`;  // Build the full caption URL
+  // Extract the actual caption path by removing '/api' from the URL
+  const captionPath = event.path.replace(/^\/.netlify\/functions\/proxy-caption/, '');  // Remove '/.netlify/functions/proxy-caption'
+  const captionUrl = `https://ccb.megafiles.store${captionPath}`;  // Build the full URL to fetch the caption file
 
   console.log("Fetching caption URL:", captionUrl); // For debugging
 
   try {
-    // Fetch the caption file from the target URL
+    // Fetch the caption file from the remote server
     const response = await fetch(captionUrl);
     
-    // Check if the response is successful
     if (!response.ok) {
       return {
         statusCode: response.status,
@@ -19,7 +18,6 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Return the fetched caption data
     const captionData = await response.text();
 
     return {
@@ -37,4 +35,3 @@ exports.handler = async function(event, context) {
     };
   }
 };
-
