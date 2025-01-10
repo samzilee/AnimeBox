@@ -1,10 +1,12 @@
 const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
-  const captionUrl = `https://ccb.megafiles.store${event.path}`;
+  // Ensure the event path is the correct relative path, not the full URL
+  const captionPath = event.path.replace(/^\/\.netlify\/functions\/proxy-caption\//, ''); // Remove the proxy part of the path
+  const captionUrl = `https://ccb.megafiles.store/${captionPath}`;
 
-  console.log('Fetching caption URL:', captionUrl);
-  
+  console.log('Fetching caption URL:', captionUrl); // Log to confirm the correct URL
+
   try {
     const response = await fetch(captionUrl);
 
@@ -34,5 +36,4 @@ exports.handler = async function(event, context) {
     };
   }
 };
-
 
