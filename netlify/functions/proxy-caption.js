@@ -1,23 +1,32 @@
-// Importing 'node-fetch' using CommonJS syntax
 const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
   const captionUrl = `https://ccb.megafiles.store${event.path}`;
 
+  console.log('Fetching caption URL:', captionUrl);
+  
   try {
-    // Fetching the caption file from the URL
     const response = await fetch(captionUrl);
+
+    // Check if the response status is 200 OK
+    if (!response.ok) {
+      console.error(`Failed to fetch caption. Status: ${response.status}`);
+      return {
+        statusCode: response.status,
+        body: `Error fetching caption file: ${response.statusText}`,
+      };
+    }
+
     const captionData = await response.text();
 
     return {
       statusCode: 200,
       body: captionData,
       headers: {
-        'Content-Type': 'text/vtt', // Set correct MIME type for captions
+        'Content-Type': 'text/vtt',
       },
     };
   } catch (error) {
-    // Handle any errors (e.g., network issues)
     console.error('Error fetching caption file:', error);
     return {
       statusCode: 500,
@@ -25,6 +34,5 @@ exports.handler = async function(event, context) {
     };
   }
 };
-
 
 
