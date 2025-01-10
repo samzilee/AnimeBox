@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FetchUpcomingAnime from "./FetchUpcomingAnime";
 import Loader from "../../../../../Loader";
 import MapUpcoming from "./MapUpcoming";
-import Pagination from "./pagination";
+import Pagination from "./Pagination";
 
 const Upcoming = () => {
   const [upcomingAnime, setUpcomingAnime] = useState({});
