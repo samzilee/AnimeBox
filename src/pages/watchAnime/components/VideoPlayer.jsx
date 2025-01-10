@@ -1,52 +1,64 @@
 import React, { useEffect, useRef, useState } from "react";
-import videojs from "video.js";
-import "video.js/dist/video-js.css";
+import { HMSHLSPlayer, HMSHLSPlayerEvents } from "@100mslive/hls-player";
 
 const VideoPlayer = ({ src, captions, poster }) => {
   const videoRef = useRef(null);
+  const [errorPLayingVideo, setErrorPlayingVideo] = useState(false);
 
   useEffect(() => {
     if (videoRef.current) {
-      // Initialize Video.js
-      const player = videojs(videoRef.current, {
-        controls: true,
-        autoplay: true,
-        preload: "auto",
-        responsive: true,
-        fluid: true,
+      setErrorPlayingVideo(false);
+      const player = new HMSHLSPlayer(src, videoRef.current);
+
+      player.hasCaptions(true);
+
+      // Remove existing tracks to avoid duplicates
+      const existingTracks = videoRef.current.querySelectorAll("track");
+      existingTracks.forEach((track) => track.remove());
+
+      captions.map((track) => {
+        const trackElement = document.createElement("track");
+        trackElement.src = "/api" + track.file.split("store")[1];
+        trackElement.kind = track.kind || "subtitles";
+        trackElement.label = track.label;
+        trackElement.default = track.default || false;
+
+        videoRef.current.appendChild(trackElement);
       });
 
-      player.src({
-        src: src,
-        type: "application/x-mpegURL",
+      player.on(HMSHLSPlayerEvents.ERROR, (data) => {
+        if (data.name === "manifest-load-error") {
+          setErrorPlayingVideo(true);
+          console.error("[HLSView] error in hls", data);
+        }
       });
-
-      // Add captions (if provided)
-      if (captions && captions.length > 0) {
-        captions.forEach((caption) => {
-          player.addRemoteTextTrack(
-            {
-              kind: "subtitles",
-              src: caption.file, // Caption file URL
-              label: caption.label, // Label displayed in UI
-              default: caption.default,
-            },
-            false // Do not automatically show this track
-          );
-        });
-      }
     }
   }, [src]);
 
   return (
-    <div data-vjs-player>
+    <>
       <video
         ref={videoRef}
-        id="my-video"
-        className="video-js vjs-theme-fantasy"
-        style={{ width: "100%", height: "100%", backgroundColor: "black" }}
+        controls
+        preload="auto"
+        autoPlay
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: "black",
+        }}
       ></video>
-    </div>
+      <div
+        className={`absolute top-0 bg-black h-full w-full text-center font-bold pt-8 text-gray-400 ${
+          errorPLayingVideo ? " visible" : "hidden"
+        }`}
+      >
+        <p>
+          The media could not be loaded, either because the server or network
+          failed or because the format is not supported.
+        </p>
+      </div>
+    </>
   );
 };
 

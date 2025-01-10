@@ -118,8 +118,25 @@ body {
 }
 
 .vjs-menu-content {
-  opacity: 1;
   width: 200px;
   min-width: 200px;
-  right: 0;
+  right: -60px;
+  top: -180px;
+  border: solid rgb(81, 81, 81);
+  transition: all 0.5s;
 }
+.vjs-back-button::before {
+  content: "⏪"; /* Backward icon */
+  font-size: 16px;
+}
+
+.vjs-forward-button::before {
+  content: "⏩"; /* Forward icon */
+  font-size: 16px;
+}
+
+/* video::-webkit-media-text-track-display {
+  bottom: 0px;
+  position: absolute;
+  border: solid;
+} */

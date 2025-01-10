@@ -42,8 +42,12 @@ const FetchAbout = ({
         newData = [data.data[0]];
       }
 
-      setAnimeData(newData[0]);
-      FetchCharacter(newData[0].mal_id);
+      const t = setAnimeData(newData[0]);
+      setTimeout(() => {
+        FetchCharacter(newData[0].mal_id);
+      }, 3000);
+
+      return () => clearTimeout(t);
     } catch (err) {
       console.log(err);
       setError(true);
@@ -58,10 +62,15 @@ const FetchAbout = ({
       setCharacters(data.data);
     } catch (error) {
       console.log(error);
+      setError(true);
     }
   };
 
   useEffect(() => {
+    setAnimeData(null);
+    setMainAnimeData(null);
+    setCharacters([]);
+
     FetchInfoForJikan();
   }, [path]);
 

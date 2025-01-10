@@ -9,11 +9,8 @@ const FetchEpisodes = ({ setAnimeId, setAvailableEp, setFetching }) => {
     try {
       const respons = await fetch(url);
       const data = await respons.json();
-
       setAnimeId(data.episodes.filter((ep) => ep.episodeNo === 1)[0].episodeId);
-
       setAvailableEp(data.episodes);
-
       setFetching(false);
     } catch (error) {
       console.log(error);
@@ -22,6 +19,7 @@ const FetchEpisodes = ({ setAnimeId, setAvailableEp, setFetching }) => {
   };
 
   useEffect(() => {
+    setAvailableEp([]);
     fetchEplist();
   }, [animeId]);
 

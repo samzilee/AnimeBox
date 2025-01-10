@@ -10,11 +10,11 @@ const AnimeVideo = ({ watching, changingEp, fetching }) => {
   return (
     <main className="flex-1 relative ">
       {changingEp || fetching ? (
-        <div className="h-[370px]">
+        <div className="h-[290px]">
           <Loader />
         </div>
       ) : (
-        <div id="container">
+        <div id="container" className="h-[290px] relative">
           <VideoPlayer
             src={watching.sources[0].url}
             captions={watching.tracks.filter(

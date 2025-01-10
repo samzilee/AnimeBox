@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 
 const RelatedAnimes = ({ related }) => {
   return (
-    <div className="">
-      <header className=" p-2 font-bold text-blue-400 text-[0.9rem] pl-5 ">
-        <p>Related Animes</p>
-      </header>
+    <section className="">
       <main>
         <ul className="Allside flex overflow-x-scroll gap-5 h-[240px] mx-3 pb-2">
           {related.map((anime, index) => {
@@ -14,7 +11,7 @@ const RelatedAnimes = ({ related }) => {
               <Link
                 key={index}
                 to={`/${anime.id}`}
-                className="AnimeList w-[170px] h-full flex-shrink-0 relative bottomShadow"
+                className="AnimeList w-[150px] flex-shrink-0 relative bottomShadow"
               >
                 <img
                   src={anime.img}
@@ -26,8 +23,8 @@ const RelatedAnimes = ({ related }) => {
                     {anime.category}
                   </p>
                   <p>
-                    {anime.name.length > 15
-                      ? anime.name.slice(0, 17) + "..."
+                    {anime.name.length > 12
+                      ? anime.name.slice(0, 12) + "..."
                       : anime.name}
                   </p>
                 </div>
@@ -36,7 +33,7 @@ const RelatedAnimes = ({ related }) => {
           })}
         </ul>
       </main>
-    </div>
+    </section>
   );
 };
 

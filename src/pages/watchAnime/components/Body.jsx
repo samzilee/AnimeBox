@@ -11,7 +11,6 @@ const Body = ({
   serverName,
   setType,
   setServerName,
-  videoTime,
 }) => {
   const path = useLocation().pathname + useLocation().search;
   const epID = path.slice(10);
@@ -34,7 +33,7 @@ const Body = ({
         episodeName: epName.name,
       })
     );
-  }, [servers, totalEp, videoTime]);
+  }, [servers, totalEp]);
 
   useEffect(() => {
     if (!totalEp[0]) return;
@@ -55,7 +54,7 @@ const Body = ({
     const epBtn = document.getElementById(epID);
     if (!epBtn) return;
     epBtn.style.backgroundColor = "rgb(96,165,250)";
-  }, [totalEp, path, search, episodes]);
+  }, [totalEp, path, search, episodes, type]);
 
   useEffect(() => {
     const clickedBtn = document.getElementById(type + serverName);
@@ -63,7 +62,7 @@ const Body = ({
       clickedBtn.style.backgroundColor = "rgb(96,165,250)";
       clickedBtn.style.color = "white";
     }
-  }, [type, serverName, servers, totalEp]);
+  }, [type, serverName, servers, totalEp, episodes]);
 
   const changeServer = (type, serverName) => {
     //sub
@@ -89,7 +88,8 @@ const Body = ({
     setServerName(serverName);
   };
 
-  if (!totalEp[0] || !servers || !watching.aboutAnime) return;
+  if (!totalEp[0] || !servers || !watching) return;
+  if (!watching.aboutAnime) return;
 
   return (
     <main className="h-[500px] md:w-[50%]">
@@ -126,7 +126,7 @@ const Body = ({
             Servers
           </button>
           <div
-            className={`p-2 flex flex-col gap-3 transition-all duration-[0.5s] bg-gray-900 bg-opacity-[0.5] rounded-md ${
+            className={`p-2 flex flex-wrap gap-3 transition-all duration-[0.5s] bg-gray-900 bg-opacity-[0.5] rounded-md  ${
               showSevers
                 ? "h-[100%]"
                 : "translate-x-[100%] overflow-hidden opacity-0 h-0"
