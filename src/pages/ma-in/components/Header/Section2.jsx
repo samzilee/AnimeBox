@@ -76,7 +76,6 @@ const Section2 = ({ NowShowing }) => {
           <p>{NowShowing.info.name}</p>
         </header>
         <ul className="text-[0.7rem] mb-1 flex font-semibold gap-1 text-gray-200">
-          [
           {NowShowing.moreInfo.Genres.map((genre, index) => {
             return (
               <li key={index}>
@@ -85,7 +84,6 @@ const Section2 = ({ NowShowing }) => {
               </li>
             );
           })}
-          ]
         </ul>
         <div className="flex gap-3">
           <Link

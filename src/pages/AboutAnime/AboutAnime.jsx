@@ -52,12 +52,12 @@ const AboutAnime = () => {
             availableEp={availableEp}
           />
           <EpList animeData={animeData} availableEp={availableEp} />
-          <div className="md:flex items-center">
+          <div className="md:flex items-center flex-row-reverse">
             <YouTube trailer={animeData.trailer} />
 
-            <div className="md:w-[50%]">
-              <header className="px-[10%] py-5 w-full md:py-0 md:pb-5 ">
-                <div className="flex justify-between items-center  relative font-bold text-nowrap ">
+            <div className="md:w-[60%] ">
+              <header className="px-[10%] py-5  md:py-0 md:pb-5 md:max-w-[1000px]">
+                <div className="flex justify-between items-center  relative font-bold text-nowrap">
                   <button
                     className={`${
                       showingList === "related" ? "text-blue-400" : "text-white"
@@ -89,11 +89,9 @@ const AboutAnime = () => {
                 </div>
               </header>
               {showingList === "related" ? (
-                <RelatedAnimes
-                  related={mainAnimeData.relatedAnimes.slice(0, 15)}
-                />
+                <RelatedAnimes related={mainAnimeData.relatedAnimes} />
               ) : (
-                <CharacterList characters={characters} />
+                <CharacterList characters={characters.slice(0, 70)} />
               )}
             </div>
           </div>

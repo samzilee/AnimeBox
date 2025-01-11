@@ -36,6 +36,7 @@ const WatchAnime = () => {
       const serverNameFilter = servers.dub.filter(
         (server) => server.serverName === serverName
       );
+
       if (!servers.dub[0]) return setType("sub");
       return setSelection(() => {
         return {
@@ -80,11 +81,10 @@ const WatchAnime = () => {
             fetching={fetching}
           />
           <Body
+            selection={selection}
             watching={watching}
             totalEp={totalEp}
             servers={servers}
-            type={type}
-            serverName={serverName}
             setType={setType}
             setServerName={setServerName}
           />

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiArrowBack, BiSearch } from "react-icons/bi";
 import { FiFilter } from "react-icons/fi";
-import { Form, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../Assets/large.png";
 
-const SearchHeader = ({ searchText, setSearchText, setSearch }) => {
+const SearchHeader = ({ searchText, setSearchText }) => {
+  const navigate = useNavigate();
+
   return (
     <header className=" flex justify-between items-center p-2 sticky top-0 z-10 bg-gray-800">
       <Link to="/">
@@ -13,15 +15,15 @@ const SearchHeader = ({ searchText, setSearchText, setSearch }) => {
         </div>
       </Link>
       <section className="flex-1 flex justify-center">
-        <form className="flex w-[80%] h-[40px] items-center px-2 py-1 bg-gray-700 bg-opacity-[0.3] rounded-lg">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setSearch(searchText);
-            }}
-          >
+        <form
+          className="flex w-[80%] h-[40px] items-center px-2 py-1 bg-gray-700 bg-opacity-[0.3] rounded-lg"
+          onSubmit={() => {
+            navigate(`/search?${searchText.split("/").join(" ")}`);
+          }}
+        >
+          <Link to={`/search?${searchText.split("/").join(" ")}`}>
             <BiSearch className="text-[1.8rem]" />
-          </button>
+          </Link>
           <input
             type="text"
             placeholder="Search"

@@ -14,7 +14,7 @@ body {
   overflow-x: hidden;
   background-color: rgb(31, 41, 55);
   color: white;
-  padding-bottom: 1.25rem;
+  /* padding-bottom: 1.25rem; */
 }
 
 /* HTML: <div class="loader"></div> */
@@ -43,11 +43,14 @@ body {
 
 .All::-webkit-scrollbar-thumb {
   background-color: rgb(16, 89, 153);
+  
+
 }
 
 .Allside::-webkit-scrollbar {
   background-color: transparent;
   height: 5px;
+  
 }
 
 @media (min-width: 768px) {
@@ -56,7 +59,9 @@ body {
   }
   .Allside::-webkit-scrollbar-thumb {
     background-color: rgb(16, 89, 153);
+    border-radius: 20px;
   }
+  
 }
 
 @keyframes loader {
@@ -92,6 +97,8 @@ body {
   }
 }
 
+
+/* 
 .vjs-modal-dialog::-webkit-scrollbar {
   background-color: transparent;
   width: 5px;
@@ -126,17 +133,13 @@ body {
   transition: all 0.5s;
 }
 .vjs-back-button::before {
-  content: "⏪"; /* Backward icon */
+  content: "⏪"; 
   font-size: 16px;
 }
 
 .vjs-forward-button::before {
-  content: "⏩"; /* Forward icon */
+  content: "⏩"; 
   font-size: 16px;
 }
 
-/* video::-webkit-media-text-track-display {
-  bottom: 0px;
-  position: absolute;
-  border: solid;
-} */
+ */

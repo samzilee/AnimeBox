@@ -24,7 +24,7 @@ const EpList = ({ animeData, availableEp }) => {
 
   useEffect(() => {
     setSearchEp(() => {
-      return episodes.filter((ep) => ep.episodeNo === +FindEp);
+      return episodes.slice(parseInt(FindEp) - 1);
     });
   }, [FindEp]);
 
@@ -60,7 +60,7 @@ const EpList = ({ animeData, availableEp }) => {
           />
         </div>
       </section>
-      <section className="Allside w-full overflow-x-scroll mt-5 ml-5 pr-5 pb-3 ">
+      <section className="Allside w-full overflow-x-scroll mt-5 ml-5 pr-5 pb-3 h-[140px]">
         <ul className="flex items-center gap-3">
           {!availableEp[0] ? (
             <p className="text-red-400">Anime Not Available Right Now</p>
@@ -74,7 +74,7 @@ const EpList = ({ animeData, availableEp }) => {
                 >
                   <img
                     src={animeData.images.jpg.large_image_url}
-                    className="w-[120px] md:w-[120px] rounded-md h-[100px] object-cover"
+                    className="w-[140px] md:w-[140px] rounded-md h-[120px] object-cover"
                     alt={`episode ${ep.episodeNo}`}
                   />
                   <Link

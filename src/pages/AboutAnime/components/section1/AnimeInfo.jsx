@@ -64,10 +64,11 @@ const AnimeInfo = ({ mainAnimeData, animeData, animeId, availableEp }) => {
     if (Wordlength === "short") {
       setWordlength("long");
       const mainAbout = document.getElementById("mainAbout");
+      const body = document.getElementsByTagName("body")[0];
       mainAbout.addEventListener("click", () => {
         setWordlength("short");
       });
-      mainAbout.addEventListener("scroll", () => {
+      body.addEventListener("scroll", () => {
         setWordlength("short");
       });
     } else {

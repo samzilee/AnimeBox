@@ -29,7 +29,7 @@ const MainHeader = () => {
   }, [animeList]);
 
   useEffect(() => {
-    if (animeList.length === 10 && animeSlideID <= animeList.length) {
+    if (animeList.length === 10 && animeSlideID <= animeList.length - 1) {
       setNowShowing(animeList[animeSlideID]);
     }
   }, [animeSlideID, animeList]);

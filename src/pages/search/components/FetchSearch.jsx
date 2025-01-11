@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-const FetchSearch = ({ searchText, setResult, setLoading, search }) => {
+const FetchSearch = ({ setResult, setLoading }) => {
+  const search = useLocation().search;
+
   const FetchAnime = async () => {
     const url =
-      searchText === ""
+      !search || search === "?"
         ? "https://animerunway2-0.vercel.app/aniwatch/most-popular"
-        : `https://animerunway2-0.vercel.app/aniwatch/search?keyword=${searchText}`;
+        : `https://animerunway2-0.vercel.app/aniwatch/search?keyword=${search}`;
     setLoading(true);
     try {
       const respons = await fetch(url);

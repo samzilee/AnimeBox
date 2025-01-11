@@ -4,11 +4,10 @@ import { FiAlertCircle } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 
 const Body = ({
+  selection,
   watching,
   totalEp,
   servers,
-  type,
-  serverName,
   setType,
   setServerName,
 }) => {
@@ -37,54 +36,40 @@ const Body = ({
 
   useEffect(() => {
     if (!totalEp[0]) return;
-    setEpisodes((current) => {
-      if (!current) return totalEp;
+    setEpisodes(() => {
+      if (search === "0") return [];
       return totalEp.slice(parseInt(search) - 1);
     });
-  }, [search, totalEp, path]);
+  }, [search, totalEp, path, showSevers]);
 
-  if (totalEp[0]) {
-    episodes.map((ep) => {
-      const epsBtn = document.getElementById(ep.episodeId);
-      if (epsBtn) {
-        epsBtn.style.backgroundColor = "";
+  useEffect(() => {
+    if (episodes[0]) {
+      episodes.map((ep) => {
+        const epsBtn = document.getElementById(ep.episodeId);
+        if (epsBtn) {
+          epsBtn.style.backgroundColor = "";
+        }
+      });
+
+      const epBtn = document.getElementById(epID);
+
+      if (epBtn) {
+        epBtn.style.backgroundColor = "rgb(96,165,250)";
       }
-    });
-
-    const epBtn = document.getElementById(epID);
-    if (epBtn) {
-      epBtn.style.backgroundColor = "rgb(96,165,250)";
     }
-  }
+  }, [episodes, path, showSevers]);
 
-  if (type && serverName) {
-    const clickedBtn = document.getElementById(type + serverName);
-    if (clickedBtn) {
-      clickedBtn.style.backgroundColor = "rgb(96,165,250)";
-      clickedBtn.style.color = "white";
+  useEffect(() => {
+    if (selection) {
+      const clickedBtn = document.getElementById(
+        selection.type + selection.serverName.serverName
+      );
+      if (clickedBtn) {
+        clickedBtn.style.backgroundColor = "rgb(96,165,250)";
+        clickedBtn.style.color = "white";
+      }
     }
-  }
-
-  /*  useEffect(() => {
-    if (!totalEp[0]) return;
-    episodes.map((ep) => {
-      const epsBtn = document.getElementById(ep.episodeId);
-      if (!epsBtn) return;
-      epsBtn.style.backgroundColor = "";
-    });
-
-    const epBtn = document.getElementById(epID);
-    if (!epBtn) return;
-    epBtn.style.backgroundColor = "rgb(96,165,250)";
-  }, [totalEp, episodes,]); */
-
-  /* useEffect(() => {
-    const clickedBtn = document.getElementById(type + serverName);
-    if (clickedBtn) {
-      clickedBtn.style.backgroundColor = "rgb(96,165,250)";
-      clickedBtn.style.color = "white";
-    }
-  }, [servers, type, serverName]); */
+  }, [selection]);
 
   const changeServer = (type, serverName) => {
     //sub
@@ -204,13 +189,13 @@ const Body = ({
           </div>
         </section>
         <section className="flex items-center p-2">
-          <div className="All flex flex-col gap-3 h-[340px] p-5 bg-gray-900 bg-opacity-[0.5] rounded-md w-full">
+          <div className="All flex flex-col gap-3 h-[340px] p-5 bg-gray-900 bg-opacity-[0.5] rounded-md w-full ">
             <header className="w-full flex justify-between h-fit flex-shrink gap-3 items-center">
               <label className="text-gray-400 font-mono text-nowrap text-[15px]">
                 Total Episodes: <span>{totalEp.length}</span>
               </label>
 
-              <div className="flex items-center gap-2 px-2 py-1  bg-gray-900 rounded-md h-fit">
+              <div className="flex items-center gap-2 px-2 py-1  bg-gray-900 rounded-md h-fit ">
                 <FaSearch className="text-[1.2rem]" />
                 <input
                   type="number"

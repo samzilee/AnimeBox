@@ -42,13 +42,9 @@ const FetchAbout = ({
         newData = [data.data[0]];
       }
 
-      const t = setAnimeData(newData[0]);
+      setAnimeData(newData[0]);
 
-      setTimeout(() => {
-        FetchCharacter(newData[0].mal_id);
-      }, 3000);
-
-      return () => clearTimeout(t);
+      FetchCharacter(newData[0].mal_id);
     } catch (err) {
       console.log(err);
       setError(true);
