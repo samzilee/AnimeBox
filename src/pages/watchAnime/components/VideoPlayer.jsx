@@ -4,15 +4,16 @@ import { HMSHLSPlayer, HMSHLSPlayerEvents } from "@100mslive/hls-player";
 const VideoPlayer = ({ src, captions, poster }) => {
   const videoRef = useRef(null);
   const [errorPLayingVideo, setErrorPlayingVideo] = useState(false);
+  const [playerCheck, setPlayerCheck] = useState(false);
 
   useEffect(() => {
-    if (videoRef.current) {
+    if (videoRef.current && !playerCheck) {
+      setPlayerCheck(true);
       setErrorPlayingVideo(false);
       const player = new HMSHLSPlayer(src, videoRef.current);
 
       player.hasCaptions(true);
 
-      // Remove existing tracks to avoid duplicates
       const existingTracks = videoRef.current.querySelectorAll("track");
       existingTracks.forEach((track) => track.remove());
 
@@ -33,6 +34,12 @@ const VideoPlayer = ({ src, captions, poster }) => {
           console.error("[HLSView] error in hls", data);
         }
       });
+
+      const timeout = setTimeout(() => {
+        setPlayerCheck(false);
+      }, 2000);
+
+      return () => clearTimeout(timeout);
     }
   }, [src, captions]);
 
@@ -42,7 +49,7 @@ const VideoPlayer = ({ src, captions, poster }) => {
         ref={videoRef}
         controls
         preload="auto"
-        autoPlay
+        autoPlay={true}
         style={{
           width: "100%",
           height: "100%",

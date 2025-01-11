@@ -43,6 +43,7 @@ const FetchAbout = ({
       }
 
       const t = setAnimeData(newData[0]);
+
       setTimeout(() => {
         FetchCharacter(newData[0].mal_id);
       }, 3000);

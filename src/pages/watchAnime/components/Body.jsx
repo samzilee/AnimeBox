@@ -43,7 +43,29 @@ const Body = ({
     });
   }, [search, totalEp, path]);
 
-  useEffect(() => {
+  if (totalEp[0]) {
+    episodes.map((ep) => {
+      const epsBtn = document.getElementById(ep.episodeId);
+      if (epsBtn) {
+        epsBtn.style.backgroundColor = "";
+      }
+    });
+
+    const epBtn = document.getElementById(epID);
+    if (epBtn) {
+      epBtn.style.backgroundColor = "rgb(96,165,250)";
+    }
+  }
+
+  if (type && serverName) {
+    const clickedBtn = document.getElementById(type + serverName);
+    if (clickedBtn) {
+      clickedBtn.style.backgroundColor = "rgb(96,165,250)";
+      clickedBtn.style.color = "white";
+    }
+  }
+
+  /*  useEffect(() => {
     if (!totalEp[0]) return;
     episodes.map((ep) => {
       const epsBtn = document.getElementById(ep.episodeId);
@@ -54,15 +76,15 @@ const Body = ({
     const epBtn = document.getElementById(epID);
     if (!epBtn) return;
     epBtn.style.backgroundColor = "rgb(96,165,250)";
-  }, [totalEp, path, search, episodes, type]);
+  }, [totalEp, episodes,]); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const clickedBtn = document.getElementById(type + serverName);
     if (clickedBtn) {
       clickedBtn.style.backgroundColor = "rgb(96,165,250)";
       clickedBtn.style.color = "white";
     }
-  }, [type, serverName, servers, totalEp, episodes]);
+  }, [servers, type, serverName]); */
 
   const changeServer = (type, serverName) => {
     //sub
