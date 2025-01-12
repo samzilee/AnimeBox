@@ -29,7 +29,7 @@ const SearchHeader = ({ searchText, setSearchText }) => {
             placeholder="Search"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="bg-transparent pl-1 outline-none flex-[1] mr-2"
+            className="bg-transparent pl-1 outline-none flex-[1] mr-2 w-full"
           />
         </form>
       </section>
