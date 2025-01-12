@@ -8,15 +8,15 @@ const SearchHeader = ({ searchText, setSearchText }) => {
   const navigate = useNavigate();
 
   return (
-    <header className=" flex justify-between items-center p-2 sticky top-0 z-10 bg-gray-800">
+    <header className=" flex justify-between items-center p-2 pt-3 sticky top-0 z-10 bg-gray-800">
       <Link to="/">
-        <div className=" w-[5rem]">
+        <div className="w-[3.3rem]">
           <img src={logo} alt="logo" className="size-full" />
         </div>
       </Link>
       <section className="flex-1 flex justify-center">
         <form
-          className="flex w-[80%] h-[40px] items-center px-2 py-1 bg-gray-700 bg-opacity-[0.3] rounded-lg"
+          className="flex w-[80%] h-[40px] items-center px-2 py-1 bg-gray-700 bg-opacity-[0.3] rounded-lg "
           onSubmit={() => {
             navigate(`/search?${searchText.split("/").join(" ")}`);
           }}
@@ -29,7 +29,7 @@ const SearchHeader = ({ searchText, setSearchText }) => {
             placeholder="Search"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            className="bg-transparent pl-1 outline-none  flex-1 mr-2"
+            className="bg-transparent pl-1 outline-none flex-[1] mr-2"
           />
         </form>
       </section>
