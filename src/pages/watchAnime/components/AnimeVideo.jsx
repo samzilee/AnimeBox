@@ -14,7 +14,7 @@ const AnimeVideo = ({ watching, changingEp, fetching }) => {
           <Loader />
         </div>
       ) : (
-        <div id="container" className="h-[290px] relative">
+        <div id="container" className="h-[290px] relative top-0">
           <VideoPlayer
             src={watching.sources[0].url}
             captions={watching.tracks.filter(

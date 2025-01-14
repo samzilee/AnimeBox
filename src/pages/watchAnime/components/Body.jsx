@@ -69,7 +69,7 @@ const Body = ({
         clickedBtn.style.color = "white";
       }
     }
-  }, [selection]);
+  }, [selection, showSevers]);
 
   const changeServer = (type, serverName) => {
     //sub

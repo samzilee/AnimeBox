@@ -52,7 +52,7 @@ const AboutAnime = () => {
             availableEp={availableEp}
           />
           <EpList animeData={animeData} availableEp={availableEp} />
-          <div className="md:flex items-center flex-row-reverse">
+          <div className="md:flex items-center flex-row-reverse mt-5">
             <YouTube trailer={animeData.trailer} />
 
             <div className="md:w-[60%] ">

@@ -3,14 +3,19 @@ import { HMSHLSPlayer, HMSHLSPlayerEvents } from "@100mslive/hls-player";
 
 const VideoPlayer = ({ src, captions, poster }) => {
   const videoRef = useRef(null);
+  const [statePlayer, setStatePlayer] = useState(null);
   const [errorPLayingVideo, setErrorPlayingVideo] = useState(false);
   const [playerCheck, setPlayerCheck] = useState(false);
+  const [videoQualitys, setVideoQualitys] = useState([]);
+  const [selectedQualitys, setSelectedQuality] = useState("Auto");
 
   useEffect(() => {
     if (videoRef.current && !playerCheck) {
       setPlayerCheck(true);
       setErrorPlayingVideo(false);
       const player = new HMSHLSPlayer(src, videoRef.current);
+
+      setStatePlayer(player);
 
       player.hasCaptions(true);
 
@@ -35,6 +40,10 @@ const VideoPlayer = ({ src, captions, poster }) => {
         }
       });
 
+      player.on(HMSHLSPlayerEvents.MANIFEST_LOADED, (event, data) => {
+        setVideoQualitys(event.layers);
+      });
+
       const timeout = setTimeout(() => {
         setPlayerCheck(false);
       }, 2000);
@@ -42,6 +51,24 @@ const VideoPlayer = ({ src, captions, poster }) => {
       return () => clearTimeout(timeout);
     }
   }, [src, captions]);
+
+  useEffect(() => {
+    if (statePlayer && videoQualitys[0]) {
+      const quality = videoQualitys.filter(
+        (quality) => quality.height == selectedQualitys
+      )[0];
+
+      /*  statePlayer.on(HMSHLSPlayerEvents.LAYER_UPDATED, (event, data) => {
+        console.log(event.layer);
+        console.log(statePlayer.getVideoElement());
+      }); */
+      if (quality) {
+        statePlayer.setLayer(quality);
+      } else {
+        statePlayer.setLayer({ height: "auto" });
+      }
+    }
+  }, [selectedQualitys]);
 
   return (
     <>
@@ -56,6 +83,25 @@ const VideoPlayer = ({ src, captions, poster }) => {
           backgroundColor: "black",
         }}
       ></video>
+
+      <select
+        className=" absolute z-[1000] top-[10px] right-[10px] bg-black p-1 border-[1.4px] rounded-md cursor-pointer border-gray-300 border-opacity-[0.5]"
+        onChange={(e) => {
+          setSelectedQuality(e.target.value);
+        }}
+      >
+        <option key={0} value="Auto" defaultValue>
+          Auto
+        </option>
+        {videoQualitys.map((quality, index) => {
+          return (
+            <option key={index + 1} value={quality.height}>
+              {quality.height}p
+            </option>
+          );
+        })}
+      </select>
+
       <div
         className={`absolute top-0 bg-black h-full w-full text-center font-bold pt-8 text-gray-400 ${
           errorPLayingVideo ? " visible" : "hidden"

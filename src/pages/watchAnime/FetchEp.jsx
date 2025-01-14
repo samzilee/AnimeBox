@@ -69,7 +69,7 @@ const FetchEp = ({
   };
 
   useEffect(() => {
-    /*   setTotalEp([]); */
+    setTotalEp([]);
     fetchTotalEpisodes();
   }, []);
 

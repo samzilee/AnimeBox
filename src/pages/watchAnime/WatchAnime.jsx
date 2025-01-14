@@ -4,6 +4,7 @@ import AnimeVideo from "./components/AnimeVideo";
 import Body from "./components/Body";
 import Error from "../../Error";
 import { useLocation } from "react-router-dom";
+import Loader from "../../Loader";
 
 const WatchAnime = () => {
   const [totalEp, setTotalEp] = useState([]);
@@ -60,6 +61,8 @@ const WatchAnime = () => {
     });
   }, [totalEp, servers, serverName, type]);
 
+  if (error) return <Error />;
+
   return (
     <main>
       <FetchEp
@@ -71,8 +74,8 @@ const WatchAnime = () => {
         setTotalEp={setTotalEp}
         selection={selection}
       />
-      {error && !fetching ? (
-        <Error />
+      {fetching ? (
+        <Loader />
       ) : (
         <div className="md:flex">
           <AnimeVideo
