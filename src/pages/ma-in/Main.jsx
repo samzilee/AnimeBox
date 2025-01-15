@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import MainHeader from "./components/Header/MainHeader.jsx";
 import MainBody from "./components/Body/MainBody.jsx";
 import { useLocation } from "react-router-dom";
@@ -11,6 +10,8 @@ const Main = () => {
     localStorage.setItem("myList", JSON.stringify([]));
   }
 
+  const date = new Date();
+
   return (
     <main>
       <MainHeader />
@@ -20,7 +21,7 @@ const Main = () => {
           Anime Box does not store any files on our server; we only link to the
           media which is hosted on 3rd party services.
         </p>
-        <p>© Anime Box All rights reserved.</p>
+        <p>©{date.getFullYear()} Anime Box All rights reserved.</p>
       </div>
     </main>
   );
