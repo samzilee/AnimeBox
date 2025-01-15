@@ -49,7 +49,7 @@ const Section2 = ({ NowShowing }) => {
     localStorage.removeItem("temporarySavedAnime");
     if (!myList) return;
     const newMylist = myList.filter(
-      (anime) => anime.info.anime_id !== NowShowing.info.anime_id
+      (anime) => anime.anime_id !== NowShowing.info.anime_id
     );
     localStorage.setItem("myList2", JSON.stringify(newMylist));
     styleBtn();
