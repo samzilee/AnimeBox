@@ -85,7 +85,7 @@ const VideoPlayer = ({ src, captions, poster }) => {
       ></video>
 
       <select
-        className=" absolute z-[1000] top-[10px] right-[10px] bg-black p-1 border-[1.4px] rounded-md cursor-pointer border-gray-300 border-opacity-[0.5]"
+        className=" absolute z-50 top-[10px] right-[10px] bg-black p-1 border-[1.4px] rounded-md cursor-pointer border-gray-300 border-opacity-[0.5]"
         onChange={(e) => {
           setSelectedQuality(e.target.value);
         }}

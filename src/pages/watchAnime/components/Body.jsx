@@ -10,6 +10,8 @@ const Body = ({
   servers,
   setType,
   setServerName,
+  changeMode,
+  setChangeMode,
 }) => {
   const path = useLocation().pathname + useLocation().search;
   const epID = path.slice(10);
@@ -116,22 +118,41 @@ const Body = ({
         </p>
       </header>
       <div className="pt-5">
-        <section className="px-4  flex flex-col">
-          <button
-            className={`border mb-5 px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s]  ${
-              showSevers
-                ? "border-blue-400 border-[1.5px] text-white bg-blue-400"
-                : "text-blue-400 bg-transparent border-blue-400 border-[1.5px]"
-            }`}
-            onClick={() => {
-              setShowServers((current) => {
-                if (current) return false;
-                return true;
-              });
-            }}
-          >
-            Servers
-          </button>
+        <section className="px-4  flex flex-col gap-2">
+          <div className="flex items-center gap-5">
+            <button
+              className={`px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s] w-full ${
+                showSevers
+                  ? "border-blue-400 border-[1.5px] text-white bg-blue-400"
+                  : "text-blue-400 bg-transparent border-blue-400 border-[1.5px]"
+              }`}
+              onClick={() => {
+                setShowServers((current) => {
+                  if (current) return false;
+                  return true;
+                });
+              }}
+            >
+              Servers
+            </button>
+
+            <button
+              className={`px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s] w-full ${
+                changeMode
+                  ? "border-blue-400 border-[1.5px] text-white bg-blue-400"
+                  : "text-blue-400 bg-transparent border-blue-400 border-[1.5px]"
+              }`}
+              onClick={() => {
+                setChangeMode((current) => {
+                  if (current) return false;
+                  return true;
+                });
+              }}
+            >
+              Download Mode
+            </button>
+          </div>
+
           <div
             className={`p-2 flex flex-wrap gap-3 transition-all duration-[0.5s] bg-gray-900 bg-opacity-[0.5] rounded-md  ${
               showSevers
