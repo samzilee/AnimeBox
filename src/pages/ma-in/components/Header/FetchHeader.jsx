@@ -7,6 +7,7 @@ const FetchHeader = ({ setAnimeList, setFetchingError }) => {
         `https://animerunway2-0.vercel.app/aniwatch/`
       );
       const data = await respons.json();
+
       fetchSpotLightInfo(data.spotLightAnimes);
     } catch (err) {
       setFetchingError(true);
@@ -21,6 +22,7 @@ const FetchHeader = ({ setAnimeList, setFetchingError }) => {
           `https://animerunway2-0.vercel.app/aniwatch/anime/${anime.id}`
         );
         const data = await respons.json();
+
         setAnimeList((current) => {
           //checking for duplicate
           const checkForDuplicate = current.filter(

@@ -18,7 +18,7 @@ const MainHeader = () => {
   const [continueWatch, setContinueWatch] = useState(null);
 
   useEffect(() => {
-    if (animeList.length < 10) return;
+    /* if (animeList.length < 10) return; */
     const interval = setInterval(() => {
       setSlideID((current) => {
         if (current >= animeList.length - 1) return 0;
@@ -29,7 +29,7 @@ const MainHeader = () => {
   }, [animeList]);
 
   useEffect(() => {
-    if (animeList.length === 10 && animeSlideID <= animeList.length - 1) {
+    if (animeList.length <= 10 && animeSlideID <= animeList.length - 1) {
       setNowShowing(animeList[animeSlideID]);
     }
   }, [animeSlideID, animeList]);
@@ -50,7 +50,7 @@ const MainHeader = () => {
   if (fetchingError) return <Error />;
 
   return (
-    <header className="Hfooter h-[400px] flex flex-col justify-between relative md:h-screen  pb-5">
+    <header className="Hfooter h-[400px] flex flex-col justify-between relative md:h-screen  pb-5 ">
       <FetchHeader
         setAnimeList={setAnimeList}
         setFetchingError={setFetchingError}

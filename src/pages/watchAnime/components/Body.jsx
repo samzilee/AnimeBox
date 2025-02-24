@@ -118,10 +118,10 @@ const Body = ({
         </p>
       </header>
       <div className="pt-5">
-        <section className="px-4  flex flex-col gap-2">
+        <section className="px-4  flex flex-col gap-4">
           <div className="flex items-center gap-5">
             <button
-              className={`px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s] w-full ${
+              className={`px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s] w-full border-[2px] ${
                 showSevers
                   ? "border-blue-400 border-[1.5px] text-white bg-blue-400"
                   : "text-blue-400 bg-transparent border-blue-400 border-[1.5px]"
@@ -137,7 +137,7 @@ const Body = ({
             </button>
 
             <button
-              className={`px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s] w-full ${
+              className={`px-3 py-[1.3px] rounded-lg transition-all duration-[0.5s] w-full border-[2px] pointer-events-none opacity-[0.5] ${
                 changeMode
                   ? "border-blue-400 border-[1.5px] text-white bg-blue-400"
                   : "text-blue-400 bg-transparent border-blue-400 border-[1.5px]"
@@ -154,14 +154,14 @@ const Body = ({
           </div>
 
           <div
-            className={`p-2 flex flex-wrap gap-3 transition-all duration-[0.5s] bg-gray-900 bg-opacity-[0.5] rounded-md  ${
+            className={`p-2  flex flex-wrap gap-3 transition-all duration-[0.5s] bg-gray-900 bg-opacity-[0.5] rounded-md   ${
               showSevers
                 ? "h-[100%]"
                 : "translate-x-[100%] overflow-hidden opacity-0 h-0"
             }`}
           >
             <div className="flex gap-2 h-fit ">
-              <label className="font-mono">Sub:</label>
+              <label className="font-mono text-gray-400">Sub:</label>
               <ul className="flex flex-wrap gap-2">
                 {!servers.sub[0] ? (
                   <div className=" flex items-center">
@@ -185,7 +185,7 @@ const Body = ({
             </div>
 
             <div className="flex gap-2 h-fit">
-              <label className="font-mono">Dub:</label>
+              <label className="font-mono text-gray-400">Dub:</label>
               <ul className="flex flex-wrap gap-2">
                 {!servers.dub[0] ? (
                   <div className=" flex items-center">
@@ -209,6 +209,7 @@ const Body = ({
             </div>
           </div>
         </section>
+
         <section className="flex items-center p-2">
           <div className="All flex flex-col gap-3 h-[340px] p-5 bg-gray-900 bg-opacity-[0.5] rounded-md w-full ">
             <header className="w-full flex justify-between h-fit flex-shrink gap-3 items-center">

@@ -11,7 +11,13 @@ const BackGround = ({ NowShowing }) => {
     return () => clearTimeout(TimeOut);
   }, [NowShowing]);
 
-  if (!NowShowing) return <Loader />;
+  if (!NowShowing)
+    return (
+      <div className="z-[-1]">
+        <Loader />
+      </div>
+    );
+
   return (
     <div
       id="slide"
