@@ -81,7 +81,11 @@ const MainHeader = () => {
         </>
       )}
 
-      {animeList.length >= 5 ? <Nav setSlideID={setSlideID} /> : null}
+      {animeList[0] ? (
+        <Nav setSlideID={setSlideID} animeList={animeList} />
+      ) : (
+        ""
+      )}
     </header>
   );
 };

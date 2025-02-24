@@ -1,17 +1,17 @@
 import React from "react";
 import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 
-const Nav = ({ setSlideID }) => {
+const Nav = ({ setSlideID, animeList }) => {
   const Increment = () => {
     setSlideID((currentValue) => {
-      if (currentValue === 10) return 0;
+      if (currentValue === animeList.length - 1) return 0;
       return currentValue + 1;
     });
   };
 
   const Decrement = () => {
     setSlideID((currentValue) => {
-      if (currentValue === 0) return 10;
+      if (currentValue === 0) return animeList.length - 1;
       return currentValue - 1;
     });
   };
