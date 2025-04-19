@@ -39,7 +39,7 @@ const MainBody = () => {
   ];
 
   return (
-    <main className="mb-5">
+    <main className="mb-5 px-2">
       <section className="flex flex-col gap-5 ">
         {Request.map((data) => {
           return (

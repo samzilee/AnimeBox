@@ -60,6 +60,7 @@ const FetchEp = ({
       setWatching((current) => {
         return { ...current, ...data };
       });
+
       setChangingEP(false);
     } catch (error) {
       console.log(error);

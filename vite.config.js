@@ -9,6 +9,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000
   },
   server: {
+
     proxy: {
       '/.netlify/functions/proxy-caption/': {
         target: 'https://ccb.megafiles.store',
@@ -16,5 +17,6 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/.netlify\/functions\/proxy-caption/, ''),
       },
     },
-  },
+  }
+
 });

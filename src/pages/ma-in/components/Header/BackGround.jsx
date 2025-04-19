@@ -26,7 +26,7 @@ const BackGround = ({ NowShowing }) => {
       }`}
     >
       <img
-        src={NowShowing.info.img}
+        src={NowShowing.info.img || ""}
         alt={NowShowing.info.name || NowShowing.moreInfo.Japanese}
         className="size-full object-cover"
       />

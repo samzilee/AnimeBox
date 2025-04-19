@@ -15,7 +15,7 @@ const List = ({ Animes }) => {
         </section>
       </header>
       <main className="Allside h-full overflow-x-scroll md:py-5 md:mx-5">
-        <ul className="flex gap-5 px-5 h-[200px] w-fit ">
+        <ul className="flex gap-5 h-[200px] w-fit ">
           {Animes.map((anime, index) => {
             return (
               <Link

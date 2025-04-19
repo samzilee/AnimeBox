@@ -28,7 +28,7 @@ const AboutAnime = () => {
 
   if (error) return <Error />;
   return (
-    <main id="mainAbout">
+    <main id="mainAbout" className="pb-[30px]">
       <FetchAbout
         setMainAnimeData={setMainAnimeData}
         setAnimeData={setAnimeData}
@@ -52,11 +52,11 @@ const AboutAnime = () => {
             availableEp={availableEp}
           />
           <EpList animeData={animeData} availableEp={availableEp} />
-          <div className="md:flex items-center flex-row-reverse mt-5">
+          <div className="md:flex items-center flex-row-reverse mt-5 ">
             <YouTube trailer={animeData.trailer} />
 
-            <div className="md:w-[60%] ">
-              <header className="px-[10%] py-5  md:py-0 md:pb-5 md:max-w-[1000px]">
+            <div className=" overflow-auto w-full">
+              <header className="px-[10%] py-5  md:py-0 md:pb-5  ">
                 <div className="flex justify-between items-center  relative font-bold text-nowrap">
                   <button
                     className={`${

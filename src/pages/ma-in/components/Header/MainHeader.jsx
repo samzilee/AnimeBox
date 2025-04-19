@@ -44,7 +44,7 @@ const MainHeader = () => {
     const animeIndexDisplay = document.getElementById(NowShowing.info.anime_id);
 
     animeIndexDisplay.style.opacity = "1";
-    animeIndexDisplay.style.scale = "1.2";
+    animeIndexDisplay.style.scale = "1.5";
   }, [NowShowing]);
 
   if (fetchingError) return <Error />;
